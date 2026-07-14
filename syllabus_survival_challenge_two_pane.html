@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Syllabus Survival Challenge</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Syllabus Survival Challenge</title>
+<style>
     :root {
       --ink: #1f2933;
       --muted: #52606d;
@@ -626,348 +627,498 @@
         transition: none !important;
       }
     }
-  </style>
+  
+
+    /* Exact syllabus reference pane */
+    .syllabus-pane {
+      position: relative;
+      overflow: hidden;
+      border-right: 4px solid var(--primary);
+      background: #ffffff;
+    }
+
+    .exact-document {
+      position: relative;
+      padding: 32px clamp(22px, 3.5vw, 46px) 70px;
+      background: #ffffff;
+      font-family: Cambria, Georgia, "Times New Roman", serif;
+      line-height: 1.38;
+      isolation: isolate;
+    }
+
+    .exact-document::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 31px,
+          rgba(148,54,52,0.04) 32px
+        );
+    }
+
+    .doc-watermark {
+      position: fixed;
+      top: 48%;
+      left: 8%;
+      z-index: -1;
+      color: rgba(148, 54, 52, 0.055);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(6rem, 13vw, 12rem);
+      line-height: 1;
+      transform: rotate(-45deg);
+      transform-origin: center;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .doc-note {
+      margin: 0 0 28px;
+      padding: 16px 18px;
+      border: 1px solid #943634;
+      color: #943634;
+      background: #ffffff;
+    }
+
+    .doc-note p {
+      margin: 0 0 12px;
+    }
+
+    .doc-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .doc-paragraph {
+      margin: 0 0 10px;
+      white-space: pre-wrap;
+      tab-size: 4;
+    }
+
+    .doc-title {
+      margin: 0;
+      color: #1f2933;
+      font-size: clamp(1.65rem, 3vw, 2.15rem);
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .doc-center {
+      margin-bottom: 2px;
+      text-align: center;
+    }
+
+    .doc-contact {
+      margin-bottom: 2px;
+    }
+
+    .doc-contact-first {
+      margin-top: 22px;
+    }
+
+    .doc-heading {
+      margin: 27px 0 11px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid rgba(148,54,52,0.22);
+      color: #943634;
+      font-size: 1.18rem;
+      line-height: 1.2;
+    }
+
+    .doc-subheading {
+      margin: 21px 0 7px;
+      color: #6f2928;
+      font-size: 1.03rem;
+      line-height: 1.25;
+    }
+
+    .doc-course-description {
+      margin-top: 24px;
+    }
+
+    .doc-bullet {
+      position: relative;
+      margin-left: 1.5rem;
+      padding-left: 0.8rem;
+    }
+
+    .doc-bullet::before {
+      content: "•";
+      position: absolute;
+      left: -0.8rem;
+      top: 0;
+      color: #1f2933;
+    }
+
+    .doc-level-1 {
+      margin-left: 3rem;
+    }
+
+    .doc-level-1::before {
+      content: "o";
+      left: -1rem;
+    }
+
+    .doc-level-2 {
+      margin-left: 4.5rem;
+    }
+
+    .doc-grade-table {
+      width: min(300px, 100%);
+      margin: 14px 0 22px;
+      border-collapse: collapse;
+      background: #ffffff;
+    }
+
+    .doc-grade-table th,
+    .doc-grade-table td {
+      padding: 6px 10px;
+      border: 1px solid #000000;
+      text-align: center;
+      white-space: pre-wrap;
+    }
+
+    .doc-grade-table th {
+      font-weight: 700;
+    }
+
+    .doc-note-inline {
+      margin: 17px 0;
+      padding: 13px 15px;
+      border: 1px solid #943634;
+      background: rgba(148,54,52,0.055);
+      font-weight: 700;
+    }
+
+    .doc-ai-do {
+      color: #176b47;
+    }
+
+    .doc-ai-dont {
+      color: #a62b2b;
+    }
+
+    .doc-adapted {
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    .doc-unit {
+      margin: 30px 0 12px;
+      padding: 8px 11px;
+      color: #ffffff;
+      background: #943634;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .doc-week {
+      margin: 21px 0 8px;
+      color: #6f2928;
+      font-size: 1rem;
+    }
+
+    .doc-schedule-item {
+      margin-bottom: 6px;
+    }
+
+    .doc-final-exam {
+      margin-top: 24px;
+      padding: 12px 14px;
+      border: 2px solid #943634;
+      font-weight: 700;
+    }
+
+    .exact-document a {
+      overflow-wrap: anywhere;
+      color: #0000ff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 940px) {
+      .exact-document {
+        max-height: 72vh;
+        overflow-y: auto;
+      }
+
+      .doc-watermark {
+        position: absolute;
+      }
+    }
+</style>
 </head>
-
 <body>
-  <main class="activity-layout">
-    <section class="pane syllabus-pane" aria-labelledby="syllabus-pane-title">
-      <header class="pane-header">
-        <p class="eyebrow">Reference Pane</p>
-        <h2 id="syllabus-pane-title">Sample WMS 250 Syllabus</h2>
-        <p>Scroll through this pane to find the information you need. Your place in the questions will remain unchanged.</p>
-      </header>
-
-      <div class="pane-content syllabus-content" id="syllabusScroll">
-        <div class="sample-note">
-          <strong>Important:</strong> This sample syllabus is not the syllabus for any of your actual classes.
-          It is only meant to help you understand what a syllabus is and how to use one. Each class will have
-          its own assignments, deadlines, expectations, and policies.
-        </div>
-
-        <h1 class="syllabus-title">WMS 250: Foundations in Women’s Studies</h1>
-
-        <div class="course-meta">
-          <div class="meta-card"><strong>Term</strong>Fall 2022</div>
-          <div class="meta-card"><strong>Meeting Time</strong>Tuesdays/Thursdays, 11:30 a.m.–12:45 p.m.</div>
-          <div class="meta-card"><strong>Location</strong>SBS B137</div>
-          <div class="meta-card"><strong>Professor</strong>Dr. Jenn Brandt, LCH A329</div>
-          <div class="meta-card"><strong>Email</strong>jbrandt@csudh.edu</div>
-          <div class="meta-card"><strong>Social Media</strong>@csudh_wms on Instagram</div>
-        </div>
-
-        <h3>Course Description</h3>
-        <p>
-          This course introduces students to the academic field of Women’s Studies. Students learn about
-          gender from multicultural, multiracial feminist, and global perspectives. Topics include women’s
-          history; gender, culture, and nation; social institutions; sexuality; sexism and violence; and local
-          and transnational women’s movements. This is a three-credit course with no prerequisite.
-        </p>
-
-        <h3>Student Learning Outcomes</h3>
-        <p>By the end of the course, students will be able to:</p>
-        <ul>
-          <li>Define key terms including sex, gender, feminism, and patriarchy.</li>
-          <li>Describe the history of feminism and feminist thought.</li>
-          <li>Evaluate the social construction of sex, gender, and sexuality.</li>
-          <li>Analyze how institutions influence the roles and status of women.</li>
-          <li>Analyze the representation of women in media.</li>
-          <li>Evaluate the connections among race, ethnicity, class, sexuality, age, sex, and gender.</li>
-          <li>Assess the future of feminism and women’s movements in the United States.</li>
-        </ul>
-
-        <h3>Required Texts</h3>
-        <ul>
-          <li>Susan M. Shaw and Janet Lee, <em>Gendered Voices, Feminist Visions</em>, 7th edition.</li>
-          <li>Additional readings posted in Canvas and identified in the class schedule.</li>
-          <li>Readings should be completed before the date on which they will be discussed.</li>
-        </ul>
-
-        <h3>Grading and Assignments</h3>
-        <div class="assignment-grid">
-          <div class="assignment-item"><strong>Responses and Quizzes</strong><br>10%</div>
-          <div class="assignment-item"><strong>Shero Archive Project</strong><br>20%</div>
-          <div class="assignment-item"><strong>Exams (2)</strong><br>50%</div>
-          <div class="assignment-item"><strong>Activism Project</strong><br>20%</div>
-        </div>
-
-        <h4>Final Grade Scale</h4>
-        <div class="grade-grid">
-          <div class="grade-item"><strong>A</strong> 94–100%</div>
-          <div class="grade-item"><strong>A−</strong> 90–93%</div>
-          <div class="grade-item"><strong>B+</strong> 87–89%</div>
-          <div class="grade-item"><strong>B</strong> 84–86%</div>
-          <div class="grade-item"><strong>B−</strong> 80–83%</div>
-          <div class="grade-item"><strong>C+</strong> 77–79%</div>
-          <div class="grade-item"><strong>C</strong> 74–76%</div>
-          <div class="grade-item"><strong>C−</strong> 70–73%</div>
-          <div class="grade-item"><strong>D+</strong> 67–69%</div>
-          <div class="grade-item"><strong>D</strong> 60–66%</div>
-          <div class="grade-item"><strong>F</strong> 0–59%</div>
-        </div>
-
-        <h3>Communication and Office Hours</h3>
-        <p><strong>Office hours:</strong> Tuesdays and Thursdays, 1:30–2:30 p.m. in LCH A329. Zoom hours are available by appointment.</p>
-        <p>
-          Students should email the professor with questions, concerns, or requests for an appointment.
-          Students can expect a response within 24 hours Monday through Friday and within 48 hours over
-          the weekend. Most messages sent during normal business hours are answered within two to three hours.
-        </p>
-
-        <h3>Climate of Mutual Respect</h3>
-        <p>
-          This course discusses sensitive topics including race, class, gender, sexuality, and violence.
-          Regular attendance, preparation, and meaningful participation are expected. Students should be
-          respectful of classmates and learn how to question, disagree, and debate without intimidation,
-          harassment, personal attacks, or disruptive behavior.
-        </p>
-
-        <h3>Assignment Details</h3>
-
-        <h4>Responses and Quizzes — 10%</h4>
-        <p>
-          One- to two-page typed responses to assigned topics or readings will be due throughout the semester.
-          Due dates appear in the class schedule.
-        </p>
-
-        <h4>Shero Archive Project — 20%</h4>
-        <p><strong>Due Thursday, October 13.</strong></p>
-        <p>
-          The term “shero” was coined by Maya Angelou to refer to women heroes. Students will recognize a
-          shero from their own lives and work with library staff to learn how to document and preserve related
-          archival materials. <strong>Full assignment details are available under “Assignments” in Canvas.</strong>
-        </p>
-
-        <h4>Activism Project — 20%</h4>
-        <p><strong>Due Tuesday, December 6.</strong></p>
-        <p>
-          Students will identify an issue for action, research feminist activist organizations connected to
-          the topic, and analyze feminism’s role in liberation movements. A full assignment sheet is available
-          under “Assignments” in Canvas.
-        </p>
-
-        <h4>Exams — 50%</h4>
-        <p>
-          The course includes a midterm and final exam. Each exam has a Canvas portion and take-home
-          short-answer and essay questions.
-        </p>
-
-        <div class="sample-note">
-          <strong>Time-management note:</strong> This is a three-credit course. In addition to attending class
-          and completing course requirements, students should expect to spend at least <strong>six hours each week</strong>
-          on reading, studying, homework, and projects outside of class.
-        </div>
-
-        <h3>Student Support and Campus Policies</h3>
-
-        <h4>Accommodation for Disabilities</h4>
-        <p>
-          Reasonable accommodations are available through the Student disAbility Resource Center. Students
-          seeking institutional support should contact the center and communicate approved accommodations
-          to the instructor.
-        </p>
-
-        <h4>Tutoring</h4>
-        <p>
-          CSUDH Tutoring Services and the Toro Learning Center provide academic support to currently enrolled
-          students at no extra cost.
-        </p>
-
-        <h4>Women’s Resource Center</h4>
-        <p>
-          The Women’s Resource Center advances gender equity and an inclusive campus climate through programs,
-          support services, and opportunities open to students of all genders. Students may attend approved
-          events and submit a one- to two-page response for extra credit.
-        </p>
-
-        <h4>Title IX</h4>
-        <p>
-          CSUDH is committed to an educational and working environment free from sexual misconduct, dating
-          violence, domestic violence, and stalking. Students are encouraged to use available campus and
-          community reporting and support resources.
-        </p>
-
-        <h3>Academic Integrity and AI Tools</h3>
-        <p>
-          Students are expected to submit their own original work. Cheating, plagiarism, and submitting work
-          created by another person or tool without appropriate acknowledgment violate academic integrity.
-          AI-generated submissions are not permitted as replacements for a student’s own work.
-        </p>
-
-        <div class="policy-do-dont">
-          <div class="policy-box do">
-            <h4>AI: Appropriate Uses</h4>
-            <ul>
-              <li>Brainstorm, refine research questions, or clarify ideas.</li>
-              <li>Check grammar, rigor, and writing style.</li>
-              <li>Fact-check AI-generated information with credible sources.</li>
-              <li>Disclose the AI tool used and the prompts submitted.</li>
-              <li>Ask the professor how AI may be used in the course.</li>
-            </ul>
-          </div>
-          <div class="policy-box dont">
-            <h4>AI: Inappropriate Uses</h4>
-            <ul>
-              <li>Submit AI-generated content without acknowledgment.</li>
-              <li>Use AI to complete an assignment instead of doing your own work.</li>
-              <li>Trust AI output without verification.</li>
-              <li>Use AI to gain an unfair advantage or interfere with others’ learning.</li>
-            </ul>
-          </div>
-        </div>
-
-        <h3>Class Schedule</h3>
-
-        <span class="unit-label">Unit One: How is gender socially constructed?</span>
-        <div class="schedule">
-          <div class="week">
-            <h4>Week One</h4>
-            <p><strong>Tuesday, August 30:</strong> Introductions; discuss “Claiming an Education.”</p>
-            <p><strong>Thursday, September 1:</strong> What is Women’s and Gender Studies? Response #1 due.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Two</h4>
-            <p><strong>Tuesday, September 6:</strong> What is Feminism?</p>
-            <p><strong>Thursday, September 8:</strong> Learning Gender.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Three</h4>
-            <p><strong>Tuesday, September 13:</strong> Learning Gender, continued. Shero Archive Project introduced.</p>
-            <p><strong>Thursday, September 15:</strong> Women’s Studies in the Archives. Class meets in the Gerth Archives. Response #2 due.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Four</h4>
-            <p><strong>Tuesday, September 20:</strong> Gender and the Body. Response #3 due.</p>
-            <p><strong>Thursday, September 22:</strong> Gender, Privilege, and Inequality.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Five</h4>
-            <p><strong>Tuesday, September 27:</strong> Gender, Privilege, and Inequality, continued.</p>
-            <p><strong>Thursday, September 29:</strong> Gender and the Law.</p>
-          </div>
-        </div>
-
-        <span class="unit-label">Unit Two: Gender within heteropatriarchy</span>
-        <div class="schedule">
-          <div class="week">
-            <h4>Week Six</h4>
-            <p><strong>Tuesday, October 4:</strong> Gender and the Media. No in-person class; complete posted materials.</p>
-            <p><strong>Thursday, October 6:</strong> Gender and the Media, continued. Response #4 due.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Seven</h4>
-            <p><strong>Tuesday, October 11:</strong> Gender and the Media, continued. No in-person class; complete posted materials.</p>
-            <p><strong>Thursday, October 13:</strong> Midterm review. <strong>Shero Archive Project due.</strong></p>
-          </div>
-
-          <div class="week">
-            <h4>Week Eight</h4>
-            <p><strong>Tuesday, October 18:</strong> Midterm exam.</p>
-            <p><strong>Thursday, October 20:</strong> Creating Change. Activism Projects assigned.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Nine</h4>
-            <p><strong>Tuesday, October 25:</strong> Relationships, Families, and Households.</p>
-            <p><strong>Thursday, October 27:</strong> Relationships, Families, and Households, continued.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Ten</h4>
-            <p><strong>Tuesday, November 1:</strong> Gender and the Division of Labor. Response #5 due.</p>
-            <p><strong>Thursday, November 3:</strong> Gender and the Division of Labor, continued.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Eleven</h4>
-            <p><strong>Tuesday, November 8:</strong> Gender and Health.</p>
-            <p><strong>Thursday, November 10:</strong> Gendered Violence. No in-person class; complete posted materials.</p>
-          </div>
-        </div>
-
-        <span class="unit-label">Unit Three: Feminism as a Liberation Movement</span>
-        <div class="schedule">
-          <div class="week">
-            <h4>Week Twelve</h4>
-            <p><strong>Tuesday, November 15:</strong> Gendered Violence.</p>
-            <p><strong>Thursday, November 17:</strong> Reproductive Rights.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Thirteen</h4>
-            <p><strong>Tuesday, November 22:</strong> Activism Projects workshop day.</p>
-            <p><strong>Thursday, November 24:</strong> Thanksgiving holiday.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Fourteen</h4>
-            <p><strong>Tuesday, November 29:</strong> Transnational Feminism.</p>
-            <p><strong>Thursday, December 1:</strong> Transnational Feminism, continued.</p>
-          </div>
-
-          <div class="week">
-            <h4>Week Fifteen</h4>
-            <p><strong>Tuesday, December 6:</strong> Transnational Feminisms, continued. <strong>Activism Project due.</strong></p>
-            <p><strong>Thursday, December 8:</strong> Final exam review.</p>
-            <p><strong>Final Exam:</strong> Thursday, December 15 at 11:30 a.m.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="pane questions-pane" aria-labelledby="activity-title">
-      <header class="pane-header">
-        <p class="eyebrow">Interactive Canvas Activity</p>
-        <h1 id="activity-title">Syllabus Survival Challenge</h1>
-        <p>Help Jordan make smart choices by finding evidence in the sample syllabus.</p>
-      </header>
-
-      <div class="pane-content questions-content" id="questionsScroll">
-        <section class="status-panel" aria-label="Activity progress">
-          <div class="status-row">
-            <span id="progressText">0 of 7 challenges completed</span>
-            <span id="scoreText">Score: 0</span>
-          </div>
-          <div class="progress-track" aria-hidden="true">
-            <div id="progressBar" class="progress-bar"></div>
-          </div>
-        </section>
-
-        <form id="quizForm" class="challenge-list" novalidate></form>
-
-        <section id="resultCard" class="result-card" aria-live="polite" aria-labelledby="resultHeading">
-          <div id="scoreBadge" class="score-badge">0/7</div>
-          <h2 id="resultHeading">Challenge Complete!</h2>
-          <p id="resultMessage"></p>
-          <div class="actions" style="justify-content:center">
-            <button id="resetButton" class="btn btn-secondary" type="button">Try Again</button>
-          </div>
-        </section>
-
-        <section id="reflectionCard" class="reflection-card" aria-labelledby="reflectionHeading">
-          <span class="challenge-label">Final Reflection</span>
-          <h2 id="reflectionHeading">Use this skill in your real classes</h2>
-          <label for="reflection">
+<main class="activity-layout">
+<section aria-label="WMS 250: Foundations in Women’s Studies" aria-labelledby="syllabus-pane-title" class="pane syllabus-pane"><div class="pane-content syllabus-content exact-document" id="syllabusScroll"><div aria-hidden="true" class="doc-watermark">Sample</div>
+<section class="doc-note">
+<p>Important Note: This sample syllabus is not the syllabus for any of your actual classes. It is only meant to help you understand what a syllabus is and how to use one.</p>
+<p>Each of your classes will have its own syllabus with different assignments, deadlines, expectations, and policies. Be sure to read the syllabus for each class carefully and refer to it whenever you have questions about that course.</p>
+</section>
+<h1 class="doc-paragraph doc-title"><strong>WMS 250:</strong><strong> </strong><strong>Foundations in</strong><strong> </strong></h1>
+<h1 class="doc-paragraph doc-title"><strong>Women’s Studies</strong></h1>
+<p class="doc-paragraph doc-center">Fall 2022</p>
+<p class="doc-paragraph doc-center">T/Th 11:30 – 12:45</p>
+<p class="doc-paragraph doc-center">SBS B137</p>
+<p class="doc-paragraph doc-contact doc-contact-first"><strong>Professor:</strong> Dr. Jenn Brandt</p>
+<p class="doc-paragraph doc-contact">LCH A329 </p>
+<p class="doc-paragraph doc-contact"><a href="mailto:jbrandt@csudh.edu" rel="noopener" target="_blank">jbrandt@csudh.edu</a></p>
+<p class="doc-paragraph doc-contact">Follow us on Instagram!</p>
+<p class="doc-paragraph doc-contact">          @csudh_wms</p>
+<p class="doc-paragraph doc-course-description"><strong>COURSE DESCRIPTION</strong><strong>: </strong>Introduces students to the academic field of Women's Studies. Students learn about gender from a multicultural, multiracial feminist and global perspective. Emphasis is on women’s history; gender, culture, and nation; social institutions; sexuality, sexism and violence; and local and transnational women’s movements. 3 credit. Prerequisite: None.</p>
+<h2 class="doc-paragraph doc-heading">Student Learning Outcomes</h2>
+<p class="doc-paragraph">Students will be able to:</p>
+<p class="doc-paragraph doc-bullet doc-level-0">define key terms relevant to women's studies including sex, gender, feminism, and patriarchy.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">describe and analyze the history of feminism and feminist thought as they relate to the development of women's studies as an academic discipline.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">evaluate the social construction of sex, gender, and sexuality in American society.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">assess historical changes in American institutions including the family, economy, politics, education, and religion as they relate to the role and status of women.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">analyze the representation of women in the American media.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">identify and evaluate various roles women currently play in the institutions of American society.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">critically analyze race, ethnicity, social class, sexuality, and age as they correlate with sex and gender in American society.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">assess the future of feminism and the women's movement in the United States.</p>
+<h2 class="doc-paragraph doc-heading"><strong>Required Texts:</strong></h2>
+<p class="doc-paragraph doc-bullet doc-level-2">Susan M. Shaw and Janet Lee. <em>Gendered</em><em> Voices, Feminist Visions</em><em>: Classic and Contemporary Readings</em>, 7<sup>th</sup> edition </p>
+<p class="doc-paragraph doc-bullet doc-level-2">Additional, <strong>required</strong> readings will be posted on Canvas and are noted on the class schedule.</p>
+<p class="doc-paragraph doc-bullet doc-level-2"><u>The readings will be discussed on the dates listed on the syllabus and, therefore, should be read </u><strong><u>before</u></strong><u> class</u>.</p>
+<table class="doc-grade-table">
+<tr>
+<th>Letter<br/>Grade</th>
+<th>Percentage</th>
+</tr>
+<tr>
+<td>A</td>
+<td>94 – 100 </td>
+</tr>
+<tr>
+<td>A-</td>
+<td>90 – 93</td>
+</tr>
+<tr>
+<td>B+</td>
+<td>87 – 89 </td>
+</tr>
+<tr>
+<td>B</td>
+<td>84 – 86</td>
+</tr>
+<tr>
+<td>B-</td>
+<td>80 – 83</td>
+</tr>
+<tr>
+<td>C+</td>
+<td>77 – 79</td>
+</tr>
+<tr>
+<td>C</td>
+<td>74 – 76 </td>
+</tr>
+<tr>
+<td>C-</td>
+<td>70 – 73 </td>
+</tr>
+<tr>
+<td>D+</td>
+<td>67 – 69 </td>
+</tr>
+<tr>
+<td>D</td>
+<td>60 - 66</td>
+</tr>
+<tr>
+<td>F</td>
+<td>0 – 59 </td>
+</tr>
+</table>
+<h2 class="doc-paragraph doc-heading"><strong>Grading and Assignments:</strong></h2>
+<p class="doc-paragraph">Responses				10%</p>
+<p class="doc-paragraph">Shero Archive Project			20%</p>
+<p class="doc-paragraph">Exams (2)	                 		50%</p>
+<p class="doc-paragraph">Activism Project			20%</p>
+<p class="doc-paragraph"><em>Final grades w</em><em>ill be given on an A-F scale:</em></p>
+<h2 class="doc-paragraph doc-heading"><strong>Communication and Office Hours</strong>: T/Th 1:30 – 2:30 (LCH A-329); Zoom hours by appointment</h2>
+<p class="doc-paragraph">Students should email their professor (<a href="mailto:jbrandt@csudh.edu" rel="noopener" target="_blank">jbrandt@csudh.edu</a>) with any questions, concerns, or to schedule an appointment outside of office hours. Students can expect a response within 24 hrs Monday – Friday, and within 48 hrs over the weekend. For the most part, emails will be responded to quickly (within 2 – 3 hrs) during normal business hours (M – F, 9:00 – 5:00). </p>
+<h2 class="doc-paragraph doc-heading"><strong>Climate of Mutual Respect</strong></h2>
+<p class="doc-paragraph">This is a course about women’s lives that actively discusses sensitive topics such as race, class, gender, sexuality, and violence against women. The course will be run as a mixture of lecture and discussion. Regular attendance and participation is expected. Students need read the required reading before class and be prepared to participate meaningfully in each class discussion. </p>
+<p class="doc-paragraph">I encourage students to feel free and open to discuss a wide range of topics. That being said, please remember to be mindful and respectful of the opinions of your fellow classmates. We must all learn how to question, disagree, and debate without resorting to tactics of intimidation, harassment, or personal attack. Insensitive language, harassment, or disruptive behavior will not be tolerated. For further details on CSUDH’s Student Code of Conduct, see:<strong> </strong><a href="https://www.csudh.edu/student-conduct/student-conduct-procedures/student-code-of-conduct" rel="noopener" target="_blank"><strong>https://www.csudh.edu/student-conduct/student-conduct-procedures/student-code-of-conduct</strong></a></p>
+<h2 class="doc-paragraph doc-heading"><strong>ASSIGNMENTS</strong></h2>
+<h3 class="doc-paragraph doc-subheading"><strong>Responses and Quizzes </strong>(10%)</h3>
+<p class="doc-paragraph">1 – 2-page typed responses to the day’s assigned topic and/or readings will be due throughout the semester and are noted on their specific dates below. </p>
+<h3 class="doc-paragraph doc-subheading"><strong>Shero </strong><strong>Archive </strong><strong>Project </strong>(20%) <strong>DUE </strong><strong>Thursday</strong><strong>, October </strong><strong>13</strong></h3>
+<p class="doc-paragraph">The term “shero” was coined by Maya Angelou to refer to women heroes. The goal of this project is to recognize a shero in your own life. This could be a family member, friend, teacher, or mentor. This project should let you not only celebrate this special woman in your life, but also give you the opportunity to know her on a deeper level. This project is built in collaboration with the CSUDH Gerth Archives. Students will work with library staff to learn how to document and preserve archival materials connected to their Shero. Full assignment details are provided under “Assignments” on Canvas. </p>
+<p class="doc-paragraph"><strong>Activism</strong><strong> Project </strong>(20%) <strong>DUE </strong><strong>Tuesday</strong><strong>, December </strong><strong>6</strong><strong> </strong></p>
+<p class="doc-paragraph">Activism is related to feminism in the desired goal to bring about positive social and political change. For this project, students will identify an issue for action, research feminist activist organizations related to your topic, and analyze feminism’s role in liberation movements. An assignment sheet with full details is provided under “Assignments” Canvas. </p>
+<h3 class="doc-paragraph doc-subheading"><strong>Exams (5</strong><strong>0</strong><strong>%)</strong></h3>
+<p class="doc-paragraph">There will be a midterm and final exam, each with a Canvas portion as well as take-home short answer and essay questions.</p>
+<p class="doc-paragraph doc-note-inline"><strong>**NOTE** This is a </strong><strong>3</strong><strong>-credit course. In addition to attending class and completing all course requirements, students are expected to spend at least </strong><strong>6</strong><strong> hours each week (2 hours for every credit) engaged in out-of-class work (i.e., reading, studying, doing homework, working on projects, etc.).</strong></p>
+<h2 class="doc-paragraph doc-heading"><strong>Accommodation for Disabilities</strong></h2>
+<p class="doc-paragraph">Schools were not built with much thought to diverse abilities in mind. I’ve attempted to make this course accessible to a diversity of needs and learning styles, but there will always be more to learn, and we all have changing needs. Your rights: The Americans with Disabilities Act (ADA) requires that reasonable accommodations be provided for students with physical, sensory, cognitive, systemic, learning and psychiatric differences. To get institutional support, contact CSUDH’s Student disAbility Resource Center (<a href="https://www.csudh.edu/sdrc/" rel="noopener" target="_blank">https://www.csudh.edu/sdrc/</a> or at (310) 243-3660 or at WH D-180 or at <a href="mailto:dss@csudh.edu)" rel="noopener" target="_blank">dss@csudh.edu)</a>. Accommodations can be made online at <a href="https://hood.accessiblelearning.com/s-CSUDH/" rel="noopener" target="_blank">https://hood.accessiblelearning.com/s-CSUDH/Links to an external site.</a></p>
+<h2 class="doc-paragraph doc-heading"><strong>Tutoring</strong></h2>
+<p class="doc-paragraph">CSUDH Tutoring Services is available for all students at no extra cost. The Toro Learning Center provides academic support to all currently enrolled CSU Dominguez Hills students. Our goal is to create an open atmosphere of learning to encourage dialogue among students and to share techniques for academic success. The center promotes student self-responsibility for academic success, so whether you are trying to maintain a high GPA or struggling to pass a difficult course, the center is here to help you succeed in achieving your academic goals.</p>
+<p class="doc-paragraph">Please see <a href="https://www.csudh.edu/tltc/learning-center/tutoring/" rel="noopener" target="_blank">https://www.csudh.edu/tltc/learning-center/tutoring/</a> for more information and scheduling.</p>
+<h2 class="doc-paragraph doc-heading"><strong>Women’s Resource Center</strong></h2>
+<p class="doc-paragraph">The Women’s Resource Center advances gender equity and an inclusive campus climate through co-curricular programming, support services, and opportunities designed to empower women of all backgrounds. While WRC programs primarily focus on women, the WRC welcomes students, staff, faculty, and alumni of all genders to attend events and access services. Small College Complex (SCC) 148: Monday – Thursday: 9am – 6pm, Friday: 9am – 5pm. csudh.edu/wrc</p>
+<p class="doc-paragraph">Throughout the semester, the Women’s Resource Center will hold a series of events. Students may attend a WRC event and provide a 1-2-page typed response to the event, relating to class, for extra credit. </p>
+<p class="doc-paragraph"><strong>Title IX </strong></p>
+<p class="doc-paragraph">Title IX makes it clear that violence and harassment based on sex and gender are civil rights offenses subject to the same kinds of accountability and the same kinds of support applied to offenses against other protected categories such as race, national origin, etc. CSU Dominguez Hills is committed to creating and sustaining an educational and working environment free of sexual misconduct, dating violence, domestic violence, and stalking. If you experience any of these forms of misconduct, you are strongly encouraged to report it to Elizabeth Schrock, the <a href="https://www.csudh.edu/gei/contact-officer/" rel="noopener" target="_blank">Title IX Officer</a> and/or the police, as well as utilize the <a href="https://www.csudh.edu/vas/get-help/" rel="noopener" target="_blank">on and off campus resources</a> available to you. Your safety and well-being is a top priority for the university.</p>
+<h2 class="doc-paragraph doc-heading"><strong>Academic Integrity</strong></h2>
+<p class="doc-paragraph">CSUDH has strict policies against cheating and plagiarism. Students are expected to hand in their own, original work for all assignments in this class. Any breaches in academic honesty will be treated seriously. I reserve the right to fail a student for ANY (this includes rough drafts) assignment that is not properly cited, is the work of another student, or violates any form of academic integrity. For a full listing of the University’s policies and procedures regarding this, please refer to the Student Conduct Code: <a href="https://www.csudh.edu/Assets/csudh-sites/financial-aid/docs/code-of-conduct.pdf" rel="noopener" target="_blank">https://www.csudh.edu/Assets/csudh-sites/financial-aid/docs/code-of-conduct.pdf</a> </p>
+<p class="doc-paragraph">As stated in the university catalog: “Students are responsible for the integrity of their actions and must be willing to accept consequences for these actions.”  Among the forms of academic dishonesty addressed by the catalog are the following:</p>
+<p class="doc-paragraph">“<em>Cheating</em>--intentionally using or attempting to use unauthorized materials, information, or study aids in any academic exercise. . . . Cheating also includes: unauthorized multiple submissions, altering or interfering with grading, lying to improve a grade, altering graded work, unauthorized removal of tests from classroom or office, and forging signatures on academic documents.”</p>
+<p class="doc-paragraph"><em>“Plagiarism</em>--the deliberate adoption or reproduction of ideas or statements of another person as one’s own without acknowledgment.”</p>
+<p class="doc-paragraph">All writing assignments should be prepared by the student. Strengthening your skills in writing, analysis, and critical thinking are all learning objectives for this course, and developing strong competencies in this area will prepare you for a competitive workplace. AI-generated submissions are not permitted and will be treated as plagiarism.</p>
+<h3 class="doc-paragraph doc-subheading">AI Tools: AI tools can be helpful for brainstorming, outlining, and refining ideas, but academic honesty requires you to distinguish your original work and avoid any misuse that undermines learning. I, your professor, am here to help you navigate these new platforms all while encouraging you to maintain academic honesty.</h3>
+<h3 class="doc-paragraph doc-subheading doc-ai-do"><strong>✅</strong><strong> </strong>Do:</h3>
+<p class="doc-paragraph doc-bullet doc-level-0">You may use AI to brainstorm, fine-tune research questions, and clarify your ideas.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Check grammar, rigor, and writing style with AI tools.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Fact-check all AI-generated content using credible sources.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Disclose your use of AI tools at the end of assignments (include the tool used and your prompts).</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Engage with your instructor about how AI tools may be used in this course.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Respect others’ privacy and intellectual property when using AI in collaborative settings.</p>
+<h3 class="doc-paragraph doc-subheading doc-ai-dont"><strong>❌</strong><strong> </strong>Don’t:</h3>
+<p class="doc-paragraph doc-bullet doc-level-0">Submit AI-generated content without proper acknowledgment—this violates academic integrity.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Use AI to complete your assignments instead of doing your own work.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Trust AI blindly—always verify the information it provides.</p>
+<p class="doc-paragraph doc-bullet doc-level-0">Use AI in ways that give you an unfair advantage or interfere with other students' learning.</p>
+<p class="doc-paragraph doc-adapted">**Adapted from CSU Ethical and Responsible Use of AI for Students &amp; George Washington University &amp; OpenAI</p>
+<p class="doc-paragraph"><strong>OpenAI. (2025). ChatGPT (August 10 version) [Large language model]. https://chat.openai.com.</strong></p>
+<p class="doc-paragraph">This paragraph and the accompanying Do's and Don'ts list were adapted from:</p>
+<p class="doc-paragraph">California State University. (n.d.). Ethical and responsible use of AI for students. </p>
+<p class="doc-paragraph"><a href="https://genai.calstate.edu/communities/students/ethical-and-responsible-use-ai-" rel="noopener" target="_blank">https://genai.calstate.edu/communities/students/ethical-and-responsible-use-ai-</a>	students</p>
+<p class="doc-paragraph">Joubin, A. A. (2023). Syllabi Policies for AI Generative Tools. George Washington University</p>
+<p class="doc-paragraph">OpenAI. (2025). ChatGPT (August 10 version) [Large language model]. </p>
+<p class="doc-paragraph">https://chat.openai.com/Links to an external site.</p>
+<h2 class="doc-paragraph doc-heading"><strong>CLASS SCHEDULE</strong></h2>
+<h3 class="doc-paragraph doc-unit"><strong><em>Unit One: How is gender socially constructed?</em></strong></h3>
+<h4 class="doc-paragraph doc-week"><u>Week One </u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Aug. 30: <em>Introductions</em><u> </u></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: “Claiming an Education”</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Sep. 1: <em>What </em><em>is</em><em> Women’s and Gender Studies? </em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 1 “Women’s and Gender Studies: Perspectives and Practices” (p. 1 -22)</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>DUE: Response #1</strong> – Why did you take this course? What are you hoping to gain from taking WMS 250? What do you think will be the most interesting aspect(s) of this course for you and why? What do you think will be the most challenging aspect(s) of this course for you and why? <u>What are two or three things you will do to help you meet these challenges?</u><strong> </strong>Is there anything I should know to help you be successful in WMS 250?</p>
+<h4 class="doc-paragraph doc-week"><u>Week Two</u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Sept. 6: <em>What is Feminism?</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss:  bell hooks “Feminist Politics,” (Canvas) Baumgardner and Richards “A Day Without Feminism” (p. 29) and Allan G. Johnson “Patriarchy, the System: An It, Not a He, a Them, or an Us” (Canvas)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Sept. 8: <em>Learning Gender</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 3 “Learning Gender” (p. 95 – 113), Judith Lorber “The Social Construction of Gender” (p. 120), and Sabine Lange “Native American Men-Women, Lesbian Two-Spirits” (p. 123)</p>
+<h4 class="doc-paragraph doc-week"><u>Week Three</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Sept. 13: <em>Learning Gender, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Christina Garcia “In Defense of Latinx” (p. 38) Nancy Henley and Jo Freeman “The Sexual Politics of Interpersonal Behavior” (Canvas), and Laurel Richardson “Gender Stereotyping in the English Language” (Canvas)<strong> </strong></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>Shero </strong><strong>Archive </strong><strong>Projects wi</strong><strong>ll be introduced in class today</strong><strong>.</strong></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Sept. 15: <em>Women’s Studies in the Archives</em><em> </em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Class will meet in the Gerth Archives on the 5<sup>th</sup> Floor of the library</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>DUE: Response #2</strong> –  Using one of the readings from week two of our course, discuss your understanding of gender. What things have you done <em>since last class</em> that make you conscious of your sex or gender?</p>
+<h4 class="doc-paragraph doc-week"><u>Week Four</u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Sept. 20:  <em>Gender and the Body</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 4 “Inscribing Gender on the Body,” (p. 155 – 175), Naomi Wolf  “The Beauty Myth” (Canvas), Roxane Gay selections from <em>Hunger</em> (Canvas)</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>DUE: Response #3</strong> – Study the speech patterns, body postures, styles of dress, and other nonverbal cues communicated by your family or friends during a social occasion (meal, gathering, job), trying not to let others know you are observing them. <u>Using these observations and the readings</u><u>/lecture material</u><u>, </u><u>write a 2-</u><u> 3-</u><u>pg </u><u>essay in which you </u><em><u>analyze</u></em><u> the behavioral cues used by your friends</u>.  </p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>Extra Credit Opportunity</strong><strong> #1</strong><strong>: </strong><em>Myrna “Mickey” Donahoe Lecture in Women’s Studies, 5:30 PM, 5</em><em><sup>th</sup></em><em> floor of CSUDH Library</em></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Sept. 22: <em>Gender, Privilege, and Inequality</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 2 “Systems of Privilege and Inequality” (p. 41 – 58) Patricia Hill Collins “Towards a New Vision” (p. 61), Vivian M. May “Intersectionality” (p. 68), Audre Lorde “There is No Hierarchy of Oppression” (p. 75)<strong>, </strong>Kia M. Q. Hall “A Transnational Black Feminist Framework” (p. 32), and Homa Khaleeli “#SAYHERNAME” (p. 558)<strong> </strong></p>
+<h4 class="doc-paragraph doc-week"><u>Week Five</u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Sept. 27: <em>Gender, Privilege, and Inequality, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss:<em> </em>Peggy McIntosh “White Privilege and Male Privilege” (Canvas) Evin Taylor “Cisgender Privilege” (p. 80)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Sept. 29: Gender and the Law</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 11 “State, Law, and Social Policy” (p. 584 – 609) and Angela N. Gist “I Knew America Was Not Ready for a Woman to be President” (p. 612)</p>
+<h3 class="doc-paragraph doc-unit"><strong><em>Unit Two: How is gender as a category deployed within heteropatriarchy? </em></strong></h3>
+<h4 class="doc-paragraph doc-week"><u>Week Six</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Oct. 4: <em>Gender and the Media</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Read: Shaw &amp; Lee Chpt. 5 “Media and Culture” (p. 222 – 246)</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>We will not meet as a class today. Students should read the lecture notes posted on </strong><strong>Canvas</strong><strong> and watch </strong><strong><em>Killing Us Softly 4</em></strong><strong> (link on </strong><strong>Canvas</strong><strong>).</strong></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Oct. 6: <em>Gender and the Media, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Sherri Williams “Cardi B: Love &amp; Hip Hop’s Unlikely Feminist Hero” (p. 267) </p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>DUE: Response #4 </strong>– Using the lecture slides and your notes from <em>Killing Us Softly 4</em>, analyze one article and one advertisement from a fashion magazine (<em>Cosmopolitan</em>, <em>Glamour</em>, etc. These can all be found in digital format online). Please include a link to your article and a picture of the advertisement to your response.</p>
+<h4 class="doc-paragraph doc-week"><u>Week Seven</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Oct. 11: <em>Gender and the Media, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>We will not meet as a class today. Students should </strong><strong>read the lecture notes posted on Blackboard and watch </strong><strong><em>Miss Representation</em></strong><strong> (link on </strong><strong>Canvas</strong><strong>). </strong></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Oct. 13:<strong> </strong><em>Midterm Exam Review</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>Shero Projects Due</strong></p>
+<h4 class="doc-paragraph doc-week"><u>Week Eight</u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Oct. 18: <strong>Midterm Exam</strong></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong><em>Extra credit opportunity</em></strong><strong><em> #2</em></strong><strong><em>:</em></strong><em> LGBTQ History </em><em>Month Queer Activist Elders Panel, </em><em>5:30 PM, 5</em><em><sup>th</sup></em><em> floor of CSUDH Library</em></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Oct. 20: <em>Creating Change</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 13 “Activism, Change, and Feminist Futures” (p. 702 – 718)</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>Activism</strong><strong> Projects will be assigned.</strong></p>
+<h4 class="doc-paragraph doc-week"><u>Week Nine</u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Oct. 25: <em>Relationships, Families, and Households</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 6 “Sex, Power, and Intimacy” (p. 280 – 297) Jessica Valenti “The Cult of Virginity” (p. 299),” Kimberly Springer “Queering Black Female Heterosexuality” (p. 336)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Oct. 27:<em> </em><em>Relationships, Families, and Households, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt 8 “Family Systems, Family Lives” (p. 398 – 416); Alix Kate Shulman “A Marriage Agreement” (Canvas), Ellen Bravo “What this Nation Really Thinks of Motherhood” (Canvas), and Ashley McKinless “Beyond the Wall” (p. 452)</p>
+<h4 class="doc-paragraph doc-week"><u>Week Ten</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Nov. 1: <em>Gender and the Division of Labor</em> </p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt 9 “Work Inside and Outside the Home” (p. 457 – 483) Sharlene Hesse-Biber and Gregg Lee Carter “A Brief History of Working Women” (p. 484), and Pat Mainardi “The Politics of Housework” (Canvas)</p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>DUE: Response #5 – </strong>Using the reading the course readings from the past week, discuss what it the concept of family means as an “experience” versus an “institution.” </p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong><em>Extra Credit Opportunity</em></strong><strong><em> #3</em></strong><strong><em>: </em></strong><em>Laura Jiménez, California Latinas for Reproductive Justice Lecture, 5:30 PM, 5</em><em><sup>th</sup></em><em> Fl of Library</em></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Nov. 3: <em>Gender and the Division of Labor, cont</em><em>.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Anna Swartz “This is the Hidden Financial Cost of Being an LGBTQ American Toady” (p. 512)</p>
+<h4 class="doc-paragraph doc-week"><u>Week Eleven</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Nov. 8:<em> </em><em>Gender and Health</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Boston Women’s Health Collective, “The Politics of Women’s Health in the United States” (Canvas), Aisha Wagner “Doctors Need to Talk Openly About Race – Our Patients Depend on It” (p. 391) and Barbara Ehrenreich “Welcome to Cancerland” (Canvas)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Nov.<em> </em>10: <em>Gendered Violence</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>We will not meet as a class today. Students should read the lecture notes posted on Blackboard and watch </strong><strong><em>No Safe Place: Violence Against Women</em></strong></p>
+<h3 class="doc-paragraph doc-unit"><strong><em>Unit Three: Feminism as a Liberation Movement</em></strong></h3>
+<h4 class="doc-paragraph doc-week"><u>Week Twelve</u><em> </em></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Nov. 15: <em>Gendered Violence</em> </p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 10 “Resisting Gender Violence” (p. 525 – 552), and Andrea Smith “Beyond the Politics of Inclusion: Violence Against Women of Color and Human Rights” (p. 553)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Nov. 17:<em> </em><em>Reproductive Rights</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Shaw &amp; Lee Chpt. 7 “Health and Reproductive Rights” (p. 341 – 369) and Roxane Gay “The Alienable Rights of Women” (Canvas)</p>
+<h4 class="doc-paragraph doc-week"><u>Week Thirteen </u></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Nov. 22: <em>Activism Projects Workshop Day</em> </p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Nov. 24:<em> </em><em>THANKSGIVING</em></p>
+<h4 class="doc-paragraph doc-week"><u>Week Fourteen</u><em> </em></h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Nov. 29:<em> </em><em>Transnational</em><em> Feminism</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Charlotte Bunch “Bringing the Global Home” (Canvas) and Jessica Neuwirth “Unequal: A Global Perspective on Women Under the Law” (Canvas)</p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Dec. 1:<em> </em><em>Transnational Feminism</em><em>, cont.</em></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item">Discuss: Emilie Linder “Gender Aspects of Human Trafficking” (p. 556)</p>
+<h4 class="doc-paragraph doc-week"><u>Week Fifteen</u> </h4>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">T Dec. 6:<em> </em><em>Transnational Feminisms, cont. </em></p>
+<p class="doc-paragraph doc-bullet doc-level-0 doc-schedule-item">Th Dec. 8: <em>Final </em><em>E</em><em>xam </em><em>R</em><em>eview</em><strong> </strong></p>
+<p class="doc-paragraph doc-bullet doc-level-1 doc-schedule-item"><strong>Activism Project Due</strong></p>
+<p class="doc-paragraph doc-final-exam"><strong>Final Exam: </strong><strong>Thursday, December 15, 11:30 AM</strong></p></div></section>
+<section aria-labelledby="activity-title" class="pane questions-pane">
+<header class="pane-header">
+<p class="eyebrow">Interactive Canvas Activity</p>
+<h1 id="activity-title">Syllabus Survival Challenge</h1>
+<p>Help Jordan make smart choices by finding evidence in the sample syllabus.</p>
+</header>
+<div class="pane-content questions-content" id="questionsScroll">
+<section aria-label="Activity progress" class="status-panel">
+<div class="status-row">
+<span id="progressText">0 of 7 challenges completed</span>
+<span id="scoreText">Score: 0</span>
+</div>
+<div aria-hidden="true" class="progress-track">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+</section>
+<form class="challenge-list" id="quizForm" novalidate=""></form>
+<section aria-labelledby="resultHeading" aria-live="polite" class="result-card" id="resultCard">
+<div class="score-badge" id="scoreBadge">0/7</div>
+<h2 id="resultHeading">Challenge Complete!</h2>
+<p id="resultMessage"></p>
+<div class="actions" style="justify-content:center">
+<button class="btn btn-secondary" id="resetButton" type="button">Try Again</button>
+</div>
+</section>
+<section aria-labelledby="reflectionHeading" class="reflection-card" id="reflectionCard">
+<span class="challenge-label">Final Reflection</span>
+<h2 id="reflectionHeading">Use this skill in your real classes</h2>
+<label for="reflection">
             What is one type of information you will look for when you receive the syllabus for each of your actual classes?
           </label>
-          <textarea id="reflection" placeholder="For example: major deadlines, grading policies, office hours..."></textarea>
-          <div class="actions">
-            <button id="copyButton" class="btn btn-primary" type="button">Copy My Reflection</button>
-          </div>
-          <div id="copyStatus" class="copy-status" aria-live="polite"></div>
-        </section>
-
-        <p class="footer-note">Your answers stay in this browser and are not submitted to Canvas.</p>
-      </div>
-    </section>
-  </main>
-
-  <script>
+<textarea id="reflection" placeholder="For example: major deadlines, grading policies, office hours..."></textarea>
+<div class="actions">
+<button class="btn btn-primary" id="copyButton" type="button">Copy My Reflection</button>
+</div>
+<div aria-live="polite" class="copy-status" id="copyStatus"></div>
+</section>
+<p class="footer-note">Your answers stay in this browser and are not submitted to Canvas.</p>
+</div>
+</section>
+</main>
+<script>
     const questions = [
       {
         label: "Challenge 1",
