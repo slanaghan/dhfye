@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabus Survival Challenge</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #52606d;
+      --surface: #ffffff;
+      --page: #eef1f4;
+      --primary: #7a1538;
+      --primary-dark: #5d102b;
+      --primary-soft: #f7e8ee;
+      --accent: #f2b134;
+      --success: #176b47;
+      --success-bg: #eaf7f0;
+      --error: #a62b2b;
+      --error-bg: #fff0f0;
+      --border: #d8dee6;
+      --focus: #1a73e8;
+      --shadow: 0 12px 30px rgba(31, 41, 51, 0.12);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--page);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .activity-layout {
+      display: grid;
+      grid-template-columns: minmax(390px, 1.05fr) minmax(430px, 0.95fr);
+      height: 100vh;
+      min-height: 0;
+    }
+
+    .pane {
+      display: flex;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      background: var(--surface);
+    }
+
+    .syllabus-pane {
+      border-right: 4px solid var(--primary);
+    }
+
+    .pane-header {
+      flex: 0 0 auto;
+      padding: 17px 22px;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 3px 12px rgba(31, 41, 51, 0.16);
+      z-index: 5;
+    }
+
+    .pane-header .eyebrow {
+      margin: 0 0 4px;
+      color: #ffe7a7;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pane-header h1,
+    .pane-header h2 {
+      margin: 0;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .pane-header h1 {
+      font-size: clamp(1.45rem, 2.5vw, 2rem);
+    }
+
+    .pane-header h2 {
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+    }
+
+    .pane-header p {
+      margin: 7px 0 0;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.92rem;
+    }
+
+    .pane-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+
+    .syllabus-content {
+      padding: 22px clamp(18px, 3vw, 34px) 48px;
+      background:
+        linear-gradient(rgba(255,255,255,0.96), rgba(255,255,255,0.96)),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 31px,
+          rgba(122,21,56,0.045) 32px
+        );
+    }
+
+    .questions-content {
+      padding: 18px 20px 48px;
+      background: linear-gradient(180deg, #f8fafc, #eef1f4);
+    }
+
+    .sample-note {
+      margin: 0 0 20px;
+      padding: 14px 16px;
+      border: 1px solid #e0bd68;
+      border-left: 6px solid var(--accent);
+      border-radius: 12px;
+      background: #fffaf0;
+    }
+
+    .syllabus-title {
+      margin: 0;
+      color: var(--primary);
+      font-size: clamp(1.7rem, 4vw, 2.35rem);
+      line-height: 1.1;
+    }
+
+    .course-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 24px;
+    }
+
+    .meta-card {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .meta-card strong {
+      display: block;
+      color: var(--primary);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .syllabus-content h3 {
+      margin: 28px 0 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--primary-soft);
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .syllabus-content h4 {
+      margin: 22px 0 7px;
+      color: var(--primary-dark);
+      font-size: 1.03rem;
+    }
+
+    .syllabus-content p {
+      margin: 8px 0;
+    }
+
+    .syllabus-content ul {
+      margin: 8px 0 14px;
+      padding-left: 22px;
+    }
+
+    .syllabus-content li {
+      margin: 5px 0;
+    }
+
+    .grade-grid,
+    .assignment-grid {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .grade-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .assignment-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grade-item,
+    .assignment-item {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .assignment-item strong,
+    .grade-item strong {
+      color: var(--primary);
+    }
+
+    .policy-do-dont {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .policy-box {
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    .policy-box.do {
+      border: 1px solid #9dceb6;
+      background: var(--success-bg);
+    }
+
+    .policy-box.dont {
+      border: 1px solid #e1aaaa;
+      background: var(--error-bg);
+    }
+
+    .policy-box h4 {
+      margin-top: 0;
+    }
+
+    .schedule {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .week {
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .week h4 {
+      margin: 0 0 7px;
+    }
+
+    .unit-label {
+      display: inline-block;
+      margin: 18px 0 3px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .status-panel {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      margin: 0 0 16px;
+      padding: 13px 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 8px 20px rgba(31,41,51,0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .progress-track {
+      height: 11px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8ecf1;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.26s ease;
+    }
+
+    .challenge-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .challenge-card,
+    .result-card,
+    .reflection-card {
+      padding: 21px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 7px 20px rgba(31, 41, 51, 0.07);
+    }
+
+    .challenge-card.is-correct {
+      border-color: #8bc5aa;
+      box-shadow: 0 8px 22px rgba(23,107,71,0.1);
+    }
+
+    .challenge-card.is-incorrect {
+      border-color: #e0a5a5;
+    }
+
+    .challenge-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--primary);
+      background: var(--primary-soft);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .challenge-card h2,
+    .result-card h2,
+    .reflection-card h2 {
+      margin: 0 0 9px;
+      color: var(--ink);
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .scenario {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    fieldset {
+      margin: 17px 0 0;
+      padding: 0;
+      border: 0;
+    }
+
+    legend {
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 9px 0;
+      padding: 12px 13px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .option:hover {
+      border-color: #b7bec8;
+      background: #fbfcfd;
+      transform: translateY(-1px);
+    }
+
+    .option:has(input:checked) {
+      border-color: var(--primary);
+      background: #fff7fa;
+    }
+
+    .option input {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+      accent-color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 10px 17px;
+      border: 0;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.14s ease, opacity 0.14s ease, background 0.14s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 15px;
+      padding: 13px 15px;
+      border-radius: 11px;
+      font-weight: 700;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.correct {
+      color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .feedback.incorrect {
+      color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .feedback .explanation {
+      display: block;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .result-card {
+      display: none;
+      margin-top: 16px;
+      border-top: 7px solid var(--accent);
+      text-align: center;
+    }
+
+    .result-card.show,
+    .reflection-card.show {
+      display: block;
+    }
+
+    .score-badge {
+      display: inline-grid;
+      width: 112px;
+      height: 112px;
+      margin: 4px auto 14px;
+      place-items: center;
+      border: 9px solid #f5e0a5;
+      border-radius: 50%;
+      color: var(--primary);
+      background: #fffaf0;
+      font-size: 1.8rem;
+      font-weight: 900;
+    }
+
+    .reflection-card {
+      display: none;
+      margin-top: 16px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 112px;
+      margin-top: 10px;
+      padding: 13px;
+      resize: vertical;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .copy-status {
+      min-height: 1.5em;
+      margin-top: 8px;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    @media (max-width: 940px) {
+      body {
+        overflow: auto;
+      }
+
+      .activity-layout {
+        display: block;
+        height: auto;
+      }
+
+      .pane {
+        height: auto;
+      }
+
+      .syllabus-pane {
+        border-right: 0;
+        border-bottom: 4px solid var(--primary);
+      }
+
+      .pane-content {
+        overflow: visible;
+      }
+
+      .syllabus-content {
+        max-height: 72vh;
+        overflow-y: auto;
+      }
+
+      .questions-content {
+        overflow: visible;
+      }
+
+      .status-panel {
+        top: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .course-meta,
+      .grade-grid,
+      .assignment-grid,
+      .policy-do-dont {
+        grid-template-columns: 1fr;
+      }
+
+      .pane-header {
+        padding: 15px 17px;
+      }
+
+      .syllabus-content,
+      .questions-content {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .challenge-card,
+      .result-card,
+      .reflection-card {
+        padding: 18px;
+      }
+
+      .status-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="activity-layout">
+    <section class="pane syllabus-pane" aria-labelledby="syllabus-pane-title">
+      <header class="pane-header">
+        <p class="eyebrow">Reference Pane</p>
+        <h2 id="syllabus-pane-title">Sample WMS 250 Syllabus</h2>
+        <p>Scroll through this pane to find the information you need. Your place in the questions will remain unchanged.</p>
+      </header>
+
+      <div class="pane-content syllabus-content" id="syllabusScroll">
+        <div class="sample-note">
+          <strong>Important:</strong> This sample syllabus is not the syllabus for any of your actual classes.
+          It is only meant to help you understand what a syllabus is and how to use one. Each class will have
+          its own assignments, deadlines, expectations, and policies.
+        </div>
+
+        <h1 class="syllabus-title">WMS 250: Foundations in Women’s Studies</h1>
+
+        <div class="course-meta">
+          <div class="meta-card"><strong>Term</strong>Fall 2022</div>
+          <div class="meta-card"><strong>Meeting Time</strong>Tuesdays/Thursdays, 11:30 a.m.–12:45 p.m.</div>
+          <div class="meta-card"><strong>Location</strong>SBS B137</div>
+          <div class="meta-card"><strong>Professor</strong>Dr. Jenn Brandt, LCH A329</div>
+          <div class="meta-card"><strong>Email</strong>jbrandt@csudh.edu</div>
+          <div class="meta-card"><strong>Social Media</strong>@csudh_wms on Instagram</div>
+        </div>
+
+        <h3>Course Description</h3>
+        <p>
+          This course introduces students to the academic field of Women’s Studies. Students learn about
+          gender from multicultural, multiracial feminist, and global perspectives. Topics include women’s
+          history; gender, culture, and nation; social institutions; sexuality; sexism and violence; and local
+          and transnational women’s movements. This is a three-credit course with no prerequisite.
+        </p>
+
+        <h3>Student Learning Outcomes</h3>
+        <p>By the end of the course, students will be able to:</p>
+        <ul>
+          <li>Define key terms including sex, gender, feminism, and patriarchy.</li>
+          <li>Describe the history of feminism and feminist thought.</li>
+          <li>Evaluate the social construction of sex, gender, and sexuality.</li>
+          <li>Analyze how institutions influence the roles and status of women.</li>
+          <li>Analyze the representation of women in media.</li>
+          <li>Evaluate the connections among race, ethnicity, class, sexuality, age, sex, and gender.</li>
+          <li>Assess the future of feminism and women’s movements in the United States.</li>
+        </ul>
+
+        <h3>Required Texts</h3>
+        <ul>
+          <li>Susan M. Shaw and Janet Lee, <em>Gendered Voices, Feminist Visions</em>, 7th edition.</li>
+          <li>Additional readings posted in Canvas and identified in the class schedule.</li>
+          <li>Readings should be completed before the date on which they will be discussed.</li>
+        </ul>
+
+        <h3>Grading and Assignments</h3>
+        <div class="assignment-grid">
+          <div class="assignment-item"><strong>Responses and Quizzes</strong><br>10%</div>
+          <div class="assignment-item"><strong>Shero Archive Project</strong><br>20%</div>
+          <div class="assignment-item"><strong>Exams (2)</strong><br>50%</div>
+          <div class="assignment-item"><strong>Activism Project</strong><br>20%</div>
+        </div>
+
+        <h4>Final Grade Scale</h4>
+        <div class="grade-grid">
+          <div class="grade-item"><strong>A</strong> 94–100%</div>
+          <div class="grade-item"><strong>A−</strong> 90–93%</div>
+          <div class="grade-item"><strong>B+</strong> 87–89%</div>
+          <div class="grade-item"><strong>B</strong> 84–86%</div>
+          <div class="grade-item"><strong>B−</strong> 80–83%</div>
+          <div class="grade-item"><strong>C+</strong> 77–79%</div>
+          <div class="grade-item"><strong>C</strong> 74–76%</div>
+          <div class="grade-item"><strong>C−</strong> 70–73%</div>
+          <div class="grade-item"><strong>D+</strong> 67–69%</div>
+          <div class="grade-item"><strong>D</strong> 60–66%</div>
+          <div class="grade-item"><strong>F</strong> 0–59%</div>
+        </div>
+
+        <h3>Communication and Office Hours</h3>
+        <p><strong>Office hours:</strong> Tuesdays and Thursdays, 1:30–2:30 p.m. in LCH A329. Zoom hours are available by appointment.</p>
+        <p>
+          Students should email the professor with questions, concerns, or requests for an appointment.
+          Students can expect a response within 24 hours Monday through Friday and within 48 hours over
+          the weekend. Most messages sent during normal business hours are answered within two to three hours.
+        </p>
+
+        <h3>Climate of Mutual Respect</h3>
+        <p>
+          This course discusses sensitive topics including race, class, gender, sexuality, and violence.
+          Regular attendance, preparation, and meaningful participation are expected. Students should be
+          respectful of classmates and learn how to question, disagree, and debate without intimidation,
+          harassment, personal attacks, or disruptive behavior.
+        </p>
+
+        <h3>Assignment Details</h3>
+
+        <h4>Responses and Quizzes — 10%</h4>
+        <p>
+          One- to two-page typed responses to assigned topics or readings will be due throughout the semester.
+          Due dates appear in the class schedule.
+        </p>
+
+        <h4>Shero Archive Project — 20%</h4>
+        <p><strong>Due Thursday, October 13.</strong></p>
+        <p>
+          The term “shero” was coined by Maya Angelou to refer to women heroes. Students will recognize a
+          shero from their own lives and work with library staff to learn how to document and preserve related
+          archival materials. <strong>Full assignment details are available under “Assignments” in Canvas.</strong>
+        </p>
+
+        <h4>Activism Project — 20%</h4>
+        <p><strong>Due Tuesday, December 6.</strong></p>
+        <p>
+          Students will identify an issue for action, research feminist activist organizations connected to
+          the topic, and analyze feminism’s role in liberation movements. A full assignment sheet is available
+          under “Assignments” in Canvas.
+        </p>
+
+        <h4>Exams — 50%</h4>
+        <p>
+          The course includes a midterm and final exam. Each exam has a Canvas portion and take-home
+          short-answer and essay questions.
+        </p>
+
+        <div class="sample-note">
+          <strong>Time-management note:</strong> This is a three-credit course. In addition to attending class
+          and completing course requirements, students should expect to spend at least <strong>six hours each week</strong>
+          on reading, studying, homework, and projects outside of class.
+        </div>
+
+        <h3>Student Support and Campus Policies</h3>
+
+        <h4>Accommodation for Disabilities</h4>
+        <p>
+          Reasonable accommodations are available through the Student disAbility Resource Center. Students
+          seeking institutional support should contact the center and communicate approved accommodations
+          to the instructor.
+        </p>
+
+        <h4>Tutoring</h4>
+        <p>
+          CSUDH Tutoring Services and the Toro Learning Center provide academic support to currently enrolled
+          students at no extra cost.
+        </p>
+
+        <h4>Women’s Resource Center</h4>
+        <p>
+          The Women’s Resource Center advances gender equity and an inclusive campus climate through programs,
+          support services, and opportunities open to students of all genders. Students may attend approved
+          events and submit a one- to two-page response for extra credit.
+        </p>
+
+        <h4>Title IX</h4>
+        <p>
+          CSUDH is committed to an educational and working environment free from sexual misconduct, dating
+          violence, domestic violence, and stalking. Students are encouraged to use available campus and
+          community reporting and support resources.
+        </p>
+
+        <h3>Academic Integrity and AI Tools</h3>
+        <p>
+          Students are expected to submit their own original work. Cheating, plagiarism, and submitting work
+          created by another person or tool without appropriate acknowledgment violate academic integrity.
+          AI-generated submissions are not permitted as replacements for a student’s own work.
+        </p>
+
+        <div class="policy-do-dont">
+          <div class="policy-box do">
+            <h4>AI: Appropriate Uses</h4>
+            <ul>
+              <li>Brainstorm, refine research questions, or clarify ideas.</li>
+              <li>Check grammar, rigor, and writing style.</li>
+              <li>Fact-check AI-generated information with credible sources.</li>
+              <li>Disclose the AI tool used and the prompts submitted.</li>
+              <li>Ask the professor how AI may be used in the course.</li>
+            </ul>
+          </div>
+          <div class="policy-box dont">
+            <h4>AI: Inappropriate Uses</h4>
+            <ul>
+              <li>Submit AI-generated content without acknowledgment.</li>
+              <li>Use AI to complete an assignment instead of doing your own work.</li>
+              <li>Trust AI output without verification.</li>
+              <li>Use AI to gain an unfair advantage or interfere with others’ learning.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Class Schedule</h3>
+
+        <span class="unit-label">Unit One: How is gender socially constructed?</span>
+        <div class="schedule">
+          <div class="week">
+            <h4>Week One</h4>
+            <p><strong>Tuesday, August 30:</strong> Introductions; discuss “Claiming an Education.”</p>
+            <p><strong>Thursday, September 1:</strong> What is Women’s and Gender Studies? Response #1 due.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Two</h4>
+            <p><strong>Tuesday, September 6:</strong> What is Feminism?</p>
+            <p><strong>Thursday, September 8:</strong> Learning Gender.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Three</h4>
+            <p><strong>Tuesday, September 13:</strong> Learning Gender, continued. Shero Archive Project introduced.</p>
+            <p><strong>Thursday, September 15:</strong> Women’s Studies in the Archives. Class meets in the Gerth Archives. Response #2 due.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Four</h4>
+            <p><strong>Tuesday, September 20:</strong> Gender and the Body. Response #3 due.</p>
+            <p><strong>Thursday, September 22:</strong> Gender, Privilege, and Inequality.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Five</h4>
+            <p><strong>Tuesday, September 27:</strong> Gender, Privilege, and Inequality, continued.</p>
+            <p><strong>Thursday, September 29:</strong> Gender and the Law.</p>
+          </div>
+        </div>
+
+        <span class="unit-label">Unit Two: Gender within heteropatriarchy</span>
+        <div class="schedule">
+          <div class="week">
+            <h4>Week Six</h4>
+            <p><strong>Tuesday, October 4:</strong> Gender and the Media. No in-person class; complete posted materials.</p>
+            <p><strong>Thursday, October 6:</strong> Gender and the Media, continued. Response #4 due.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Seven</h4>
+            <p><strong>Tuesday, October 11:</strong> Gender and the Media, continued. No in-person class; complete posted materials.</p>
+            <p><strong>Thursday, October 13:</strong> Midterm review. <strong>Shero Archive Project due.</strong></p>
+          </div>
+
+          <div class="week">
+            <h4>Week Eight</h4>
+            <p><strong>Tuesday, October 18:</strong> Midterm exam.</p>
+            <p><strong>Thursday, October 20:</strong> Creating Change. Activism Projects assigned.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Nine</h4>
+            <p><strong>Tuesday, October 25:</strong> Relationships, Families, and Households.</p>
+            <p><strong>Thursday, October 27:</strong> Relationships, Families, and Households, continued.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Ten</h4>
+            <p><strong>Tuesday, November 1:</strong> Gender and the Division of Labor. Response #5 due.</p>
+            <p><strong>Thursday, November 3:</strong> Gender and the Division of Labor, continued.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Eleven</h4>
+            <p><strong>Tuesday, November 8:</strong> Gender and Health.</p>
+            <p><strong>Thursday, November 10:</strong> Gendered Violence. No in-person class; complete posted materials.</p>
+          </div>
+        </div>
+
+        <span class="unit-label">Unit Three: Feminism as a Liberation Movement</span>
+        <div class="schedule">
+          <div class="week">
+            <h4>Week Twelve</h4>
+            <p><strong>Tuesday, November 15:</strong> Gendered Violence.</p>
+            <p><strong>Thursday, November 17:</strong> Reproductive Rights.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Thirteen</h4>
+            <p><strong>Tuesday, November 22:</strong> Activism Projects workshop day.</p>
+            <p><strong>Thursday, November 24:</strong> Thanksgiving holiday.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Fourteen</h4>
+            <p><strong>Tuesday, November 29:</strong> Transnational Feminism.</p>
+            <p><strong>Thursday, December 1:</strong> Transnational Feminism, continued.</p>
+          </div>
+
+          <div class="week">
+            <h4>Week Fifteen</h4>
+            <p><strong>Tuesday, December 6:</strong> Transnational Feminisms, continued. <strong>Activism Project due.</strong></p>
+            <p><strong>Thursday, December 8:</strong> Final exam review.</p>
+            <p><strong>Final Exam:</strong> Thursday, December 15 at 11:30 a.m.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane questions-pane" aria-labelledby="activity-title">
+      <header class="pane-header">
+        <p class="eyebrow">Interactive Canvas Activity</p>
+        <h1 id="activity-title">Syllabus Survival Challenge</h1>
+        <p>Help Jordan make smart choices by finding evidence in the sample syllabus.</p>
+      </header>
+
+      <div class="pane-content questions-content" id="questionsScroll">
+        <section class="status-panel" aria-label="Activity progress">
+          <div class="status-row">
+            <span id="progressText">0 of 7 challenges completed</span>
+            <span id="scoreText">Score: 0</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </section>
+
+        <form id="quizForm" class="challenge-list" novalidate></form>
+
+        <section id="resultCard" class="result-card" aria-live="polite" aria-labelledby="resultHeading">
+          <div id="scoreBadge" class="score-badge">0/7</div>
+          <h2 id="resultHeading">Challenge Complete!</h2>
+          <p id="resultMessage"></p>
+          <div class="actions" style="justify-content:center">
+            <button id="resetButton" class="btn btn-secondary" type="button">Try Again</button>
+          </div>
+        </section>
+
+        <section id="reflectionCard" class="reflection-card" aria-labelledby="reflectionHeading">
+          <span class="challenge-label">Final Reflection</span>
+          <h2 id="reflectionHeading">Use this skill in your real classes</h2>
+          <label for="reflection">
+            What is one type of information you will look for when you receive the syllabus for each of your actual classes?
+          </label>
+          <textarea id="reflection" placeholder="For example: major deadlines, grading policies, office hours..."></textarea>
+          <div class="actions">
+            <button id="copyButton" class="btn btn-primary" type="button">Copy My Reflection</button>
+          </div>
+          <div id="copyStatus" class="copy-status" aria-live="polite"></div>
+        </section>
+
+        <p class="footer-note">Your answers stay in this browser and are not submitted to Canvas.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        label: "Challenge 1",
+        title: "The Missing Instructions",
+        scenario: "Jordan remembers that the Shero Archive Project is due soon but cannot remember what the project requires.",
+        prompt: "Where should Jordan look first?",
+        options: [
+          "Search social media",
+          "Look under “Assignments” in Canvas",
+          "Ask another student to send their project",
+          "Wait until the day before it is due"
+        ],
+        answer: 1,
+        explanation: "The syllabus says full project details are available under “Assignments” in Canvas."
+      },
+      {
+        label: "Challenge 2",
+        title: "The Deadline Mix-Up",
+        scenario: "Jordan thinks the Shero Archive Project is due in December.",
+        prompt: "What is the actual due date?",
+        options: [
+          "September 15",
+          "October 13",
+          "November 22",
+          "December 6"
+        ],
+        answer: 1,
+        explanation: "The Shero Archive Project is due Thursday, October 13."
+      },
+      {
+        label: "Challenge 3",
+        title: "The Grade Emergency",
+        scenario: "Jordan has limited study time and wants to know which course requirement has the greatest impact on the final grade.",
+        prompt: "Which category is worth the most?",
+        options: [
+          "Responses and quizzes",
+          "Shero Archive Project",
+          "Exams",
+          "Activism Project"
+        ],
+        answer: 2,
+        explanation: "The two exams together are worth 50% of the final grade."
+      },
+      {
+        label: "Challenge 4",
+        title: "The Late-Night Email",
+        scenario: "Jordan emails the professor at 11:00 p.m. on Saturday and becomes worried after not receiving a response Sunday morning.",
+        prompt: "What does the syllabus say?",
+        options: [
+          "The professor responds within one hour",
+          "Students should not email on weekends",
+          "Weekend responses may take up to 48 hours",
+          "Jordan should send the same email several more times"
+        ],
+        answer: 2,
+        explanation: "The syllabus says students can expect a response within 48 hours over the weekend."
+      },
+      {
+        label: "Challenge 5",
+        title: "The AI Shortcut",
+        scenario: "Jordan asks an AI tool to write an entire response assignment and plans to submit it without mentioning the AI use.",
+        prompt: "Is this allowed?",
+        options: [
+          "Yes, as long as the writing sounds good",
+          "Yes, because AI may be used for any purpose",
+          "No, students may not submit AI-generated work as their own",
+          "No, AI tools may never be used in the course"
+        ],
+        answer: 2,
+        explanation: "The syllabus allows limited uses such as brainstorming and editing, but students must verify and disclose AI use."
+      },
+      {
+        label: "Challenge 6",
+        title: "The Time-Management Reality Check",
+        scenario: "Jordan plans to spend only one hour per week on WMS 250 outside of class.",
+        prompt: "Approximately how much weekly out-of-class time does the syllabus recommend?",
+        options: [
+          "1 hour",
+          "3 hours",
+          "6 hours",
+          "12 hours"
+        ],
+        answer: 2,
+        explanation: "For this three-credit course, students are expected to spend about six hours per week on work outside class."
+      },
+      {
+        label: "Final Decision",
+        title: "The Smart First Step",
+        scenario: "Jordan has a question about an upcoming assignment.",
+        prompt: "What should Jordan do first?",
+        options: [
+          "Check the syllabus and Canvas",
+          "Immediately email the professor",
+          "Ask someone who took the class last year",
+          "Ignore the question and hope it becomes clear"
+        ],
+        answer: 0,
+        explanation: "The syllabus and Canvas are the best first places to check for assignment details, deadlines, and course policies."
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+    const progressText = document.getElementById("progressText");
+    const scoreText = document.getElementById("scoreText");
+    const progressBar = document.getElementById("progressBar");
+    const resultCard = document.getElementById("resultCard");
+    const reflectionCard = document.getElementById("reflectionCard");
+    const scoreBadge = document.getElementById("scoreBadge");
+    const resultMessage = document.getElementById("resultMessage");
+    const resetButton = document.getElementById("resetButton");
+    const copyButton = document.getElementById("copyButton");
+    const reflection = document.getElementById("reflection");
+    const copyStatus = document.getElementById("copyStatus");
+    const questionsScroll = document.getElementById("questionsScroll");
+
+    const state = questions.map(() => ({ correct: false }));
+
+    function renderQuestions() {
+      form.innerHTML = questions.map((question, questionIndex) => `
+        <article class="challenge-card" id="card-${questionIndex}">
+          <span class="challenge-label">${question.label}</span>
+          <h2>${question.title}</h2>
+          <p class="scenario">${question.scenario}</p>
+
+          <fieldset>
+            <legend>${question.prompt}</legend>
+            ${question.options.map((option, optionIndex) => `
+              <label class="option">
+                <input
+                  type="radio"
+                  name="question-${questionIndex}"
+                  value="${optionIndex}"
+                  aria-describedby="feedback-${questionIndex}"
+                >
+                <span>${option}</span>
+              </label>
+            `).join("")}
+          </fieldset>
+
+          <div class="actions">
+            <button
+              class="btn btn-primary check-button"
+              type="button"
+              data-index="${questionIndex}"
+            >
+              Check Answer
+            </button>
+          </div>
+
+          <div
+            id="feedback-${questionIndex}"
+            class="feedback"
+            aria-live="polite"
+          ></div>
+        </article>
+      `).join("");
+
+      document.querySelectorAll(".check-button").forEach((button) => {
+        button.addEventListener("click", checkAnswer);
+      });
+    }
+
+    function scrollQuestionIntoView(element) {
+      const paneTop = questionsScroll.getBoundingClientRect().top;
+      const elementTop = element.getBoundingClientRect().top;
+      questionsScroll.scrollTo({
+        top: questionsScroll.scrollTop + elementTop - paneTop - 95,
+        behavior: "smooth"
+      });
+    }
+
+    function checkAnswer(event) {
+      const questionIndex = Number(event.currentTarget.dataset.index);
+      const selected = form.querySelector(`input[name="question-${questionIndex}"]:checked`);
+      const feedback = document.getElementById(`feedback-${questionIndex}`);
+      const card = document.getElementById(`card-${questionIndex}`);
+
+      if (!selected) {
+        feedback.className = "feedback incorrect show";
+        feedback.textContent = "Choose an answer before checking.";
+        return;
+      }
+
+      const correct = Number(selected.value) === questions[questionIndex].answer;
+      state[questionIndex].correct = correct;
+
+      card.classList.toggle("is-correct", correct);
+      card.classList.toggle("is-incorrect", !correct);
+
+      if (correct) {
+        feedback.className = "feedback correct show";
+        feedback.innerHTML = `Correct! <span class="explanation">${questions[questionIndex].explanation}</span>`;
+
+        event.currentTarget.disabled = true;
+        card.querySelectorAll("input").forEach((input) => {
+          input.disabled = true;
+        });
+
+        const next = document.getElementById(`card-${questionIndex + 1}`);
+        if (next) {
+          setTimeout(() => scrollQuestionIntoView(next), 250);
+        }
+      } else {
+        feedback.className = "feedback incorrect show";
+        feedback.textContent = "Not quite. Try again using the information in the sample syllabus.";
+      }
+
+      updateStatus();
+    }
+
+    function updateStatus() {
+      const completed = state.filter((item) => item.correct).length;
+      const percent = Math.round((completed / questions.length) * 100);
+
+      progressText.textContent = `${completed} of ${questions.length} challenges completed`;
+      scoreText.textContent = `Score: ${completed}`;
+      progressBar.style.width = `${percent}%`;
+
+      if (completed === questions.length) {
+        showResults(completed);
+      }
+    }
+
+    function showResults(score) {
+      scoreBadge.textContent = `${score}/${questions.length}`;
+      resultMessage.textContent =
+        "You helped Jordan survive the semester! The same strategy works in your real classes: check the syllabus and Canvas before guessing.";
+
+      resultCard.classList.add("show");
+      reflectionCard.classList.add("show");
+
+      setTimeout(() => scrollQuestionIntoView(resultCard), 250);
+    }
+
+    function resetActivity() {
+      state.forEach((item) => {
+        item.correct = false;
+      });
+
+      renderQuestions();
+      resultCard.classList.remove("show");
+      reflectionCard.classList.remove("show");
+      reflection.value = "";
+      copyStatus.textContent = "";
+      updateStatus();
+
+      questionsScroll.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    async function copyReflection() {
+      const text = reflection.value.trim();
+
+      if (!text) {
+        copyStatus.textContent = "Write a reflection before copying.";
+        reflection.focus();
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.textContent = "Reflection copied!";
+      } catch (error) {
+        reflection.select();
+        document.execCommand("copy");
+        copyStatus.textContent = "Reflection copied!";
+      }
+    }
+
+    resetButton.addEventListener("click", resetActivity);
+    copyButton.addEventListener("click", copyReflection);
+
+    renderQuestions();
+    updateStatus();
+  </script>
+</body>
+</html>
