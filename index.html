@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Toro Advance opportunity exploration activity using CSUDH resources.">
+  <title>Opportunity Exploration | Toro Advance</title>
+  <style>
+:root {
+  --cardinal: #8c1d40;
+  --cardinal-dark: #5f102b;
+  --gold: #f2a900;
+  --gold-light: #fff4cf;
+  --ink: #20242b;
+  --muted: #596273;
+  --paper: #ffffff;
+  --surface: #f5f6f8;
+  --line: #d8dde5;
+  --success: #176b45;
+  --shadow: 0 10px 28px rgba(32,36,43,.10);
+  --radius: 18px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: linear-gradient(180deg, #f8f5f6 0, #f5f6f8 360px);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+a { color: var(--cardinal); text-underline-offset: 3px; }
+a:hover { color: var(--cardinal-dark); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: #fff; color: #000; padding: .75rem 1rem; z-index: 9999;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+.site-header {
+  background: linear-gradient(135deg, var(--cardinal-dark), var(--cardinal));
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::after {
+  content: "";
+  position: absolute;
+  width: 360px; height: 360px;
+  border: 72px solid rgba(242,169,0,.18);
+  border-radius: 50%;
+  right: -145px; top: -210px;
+}
+.header-inner, .nav-inner, main, .footer-inner { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+.header-inner { padding: 2.2rem 0 2rem; position: relative; z-index: 1; }
+.eyebrow { margin: 0 0 .35rem; font-size: .8rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; color: #ffe49a; }
+h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.05; max-width: 850px; }
+.tagline { margin: .8rem 0 0; max-width: 760px; font-size: clamp(1rem, 2.5vw, 1.25rem); color: #fff9e9; }
+.station-icon { font-size: 2.2rem; margin-bottom: .6rem; display: block; }
+.top-nav { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 58px; }
+.home-link { font-weight: 800; text-decoration: none; }
+.station-nav { display: flex; gap: .35rem; flex-wrap: wrap; justify-content: flex-end; }
+.station-nav a {
+  text-decoration: none; width: 34px; height: 34px; display: inline-grid; place-items: center;
+  border-radius: 50%; font-weight: 800; border: 1px solid var(--line); color: var(--ink);
+}
+.station-nav a:hover, .station-nav a[aria-current="page"] { background: var(--cardinal); color: white; border-color: var(--cardinal); }
+main { padding: 2rem 0 3.5rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 1.4rem; align-items: start; }
+.stack { display: grid; gap: 1.35rem; }
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.15rem, 3vw, 1.7rem); box-shadow: var(--shadow); }
+.panel h2 { margin: 0 0 .75rem; color: var(--cardinal-dark); font-size: 1.45rem; }
+.panel h3 { margin-top: 0; }
+.lead { font-size: 1.12rem; margin: 0; }
+.skill-list { display: flex; gap: .55rem; flex-wrap: wrap; margin: .85rem 0 0; padding: 0; list-style: none; }
+.skill-list li { background: var(--gold-light); border: 1px solid #edd486; padding: .42rem .7rem; border-radius: 999px; font-weight: 700; font-size: .92rem; }
+.resource-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+.resource-card { border: 1px solid var(--line); border-radius: 14px; padding: 1rem; background: #fff; display: flex; flex-direction: column; }
+.resource-card h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
+.resource-card p { margin: 0 0 .8rem; color: var(--muted); flex: 1; }
+.resource-card a, .button-link {
+  display: inline-flex; align-items: center; gap: .35rem; width: fit-content;
+  background: var(--cardinal); color: #fff; text-decoration: none; font-weight: 800;
+  padding: .6rem .8rem; border-radius: 10px;
+}
+.resource-card a:hover, .button-link:hover { background: var(--cardinal-dark); color: #fff; }
+.option-list { display: grid; gap: .65rem; }
+.option {
+  display: grid; grid-template-columns: 28px 1fr; align-items: start; gap: .65rem;
+  border: 1px solid var(--line); border-radius: 12px; padding: .75rem .8rem; cursor: pointer;
+}
+.option:hover { background: #faf7f8; border-color: #c9a3b1; }
+.option input { width: 20px; height: 20px; margin-top: .1rem; accent-color: var(--cardinal); }
+.notes-grid { display: grid; gap: 1rem; }
+label.note-label { display: block; font-weight: 800; margin-bottom: .35rem; }
+textarea { width: 100%; min-height: 92px; resize: vertical; border: 1px solid #b9c0ca; border-radius: 10px; padding: .75rem; font: inherit; background: #fff; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: 1.1rem; }
+button {
+  border: 0; border-radius: 10px; padding: .68rem .9rem; font: inherit; font-weight: 800; cursor: pointer;
+  background: var(--cardinal); color: #fff;
+}
+button.secondary { background: #e8ebef; color: var(--ink); }
+button.danger { background: #fff; color: #9c213e; border: 1px solid #c98798; }
+.status { color: var(--success); font-weight: 700; min-height: 1.5em; }
+.side-panel { position: sticky; top: 78px; }
+.side-panel ol { padding-left: 1.25rem; }
+.side-panel li + li { margin-top: .6rem; }
+.tip { background: var(--gold-light); border-left: 5px solid var(--gold); padding: .85rem 1rem; border-radius: 8px; }
+.page-switcher { display: flex; justify-content: space-between; gap: .75rem; margin-top: 1.35rem; }
+.page-switcher a { text-decoration: none; font-weight: 800; padding: .65rem .8rem; border: 1px solid var(--line); border-radius: 10px; background: white; }
+.site-footer { background: #252a33; color: #fff; }
+.footer-inner { padding: 1.5rem 0; font-size: .9rem; }
+.footer-inner p { margin: .25rem 0; }
+.footer-inner a { color: #ffe49a; }
+/* Landing page */
+.hero-actions { margin-top: 1.2rem; display: flex; gap: .7rem; flex-wrap: wrap; }
+.hero-actions a { background: #fff; color: var(--cardinal-dark); text-decoration: none; font-weight: 800; padding: .7rem 1rem; border-radius: 10px; }
+.station-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+.station-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.station-card-head { padding: 1.2rem; background: linear-gradient(135deg, #fff7dc, #fff); border-bottom: 1px solid var(--line); }
+.station-card h2 { margin: 0; font-size: 1.3rem; color: var(--cardinal-dark); }
+.station-card .card-body { padding: 1.2rem; }
+.station-card ul { padding-left: 1.15rem; }
+.station-card li + li { margin-top: .55rem; }
+.station-card .open { margin-top: 1rem; }
+.resource-directory { margin-top: 2rem; }
+.directory-group { scroll-margin-top: 80px; }
+.directory-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .7rem; }
+.directory-link { background: white; border: 1px solid var(--line); border-radius: 12px; padding: .85rem; text-decoration: none; font-weight: 800; display: flex; justify-content: space-between; gap: .5rem; }
+.directory-link span { color: var(--muted); font-weight: 400; display: block; font-size: .9rem; margin-top: .2rem; }
+@media (max-width: 820px) {
+  .layout { grid-template-columns: 1fr; }
+  .side-panel { position: static; }
+  .resource-grid, .station-grid, .directory-list { grid-template-columns: 1fr; }
+  .nav-inner { align-items: flex-start; padding: .65rem 0; }
+}
+@media (max-width: 520px) {
+  .header-inner, .nav-inner, main, .footer-inner { width: min(100% - 1rem, 1100px); }
+  .panel { border-radius: 14px; }
+  .station-nav a { width: 30px; height: 30px; }
+}
+@media print {
+  .top-nav, .actions, .page-switcher, .side-panel, .site-footer, .resource-card a, .hero-actions { display: none !important; }
+  body { background: white; }
+  main { width: 100%; padding: 0; }
+  .layout { display: block; }
+  .panel, .station-card { box-shadow: none; break-inside: avoid; }
+  .site-header { color: black; background: white; border-bottom: 3px solid #000; }
+  .site-header::after { display: none; }
+  .eyebrow, .tagline { color: black; }
+  a { color: black; text-decoration: none; }
+  textarea { min-height: 75px; }
+}
+</style>
+</head>
+<body data-page-key="opportunity-home">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header"><div class="header-inner">
+          <p class="eyebrow">Toro Advance · Opportunity Exploration</p>
+          <h1>From Skills to Opportunities</h1>
+          <p class="tagline">Explore five ways to build experience, strengthen career-ready skills, and choose a realistic next step at CSUDH.</p>
+          <div class="hero-actions"><a href="#stations">Explore the five stations</a><a href="#resources">View all CSUDH resource links</a></div>
+        </div></header>
+<nav class="top-nav" aria-label="Opportunity exploration navigation"><div class="nav-inner">
+      <a class="home-link" href="index.html">← Opportunity Home</a>
+      <div class="station-nav" aria-label="Station pages"><a href="campus-involvement-leadership.html" aria-label="Station 1: Campus Involvement &amp; Leadership">1</a><a href="jobs-internships.html" aria-label="Station 2: Jobs &amp; Internships">2</a><a href="academic-opportunities-research.html" aria-label="Station 3: Academic Opportunities &amp; Research">3</a><a href="community-service-volunteering.html" aria-label="Station 4: Community Service &amp; Volunteering">4</a><a href="professional-relationships-mentoring.html" aria-label="Station 5: Professional Relationships &amp; Mentoring">5</a></div>
+    </div></nav>
+<main id="main-content">
+<section class="panel" aria-labelledby="how-to-heading">
+  <h2 id="how-to-heading">How to use these pages</h2>
+  <p class="lead">Explore the five ways to build experience during your second year. At each station, open at least one CSUDH resource, notice what interests you, and choose one small next step.</p>
+  <div class="tip"><strong>No perfect choice is required.</strong> The goal is to explore possibilities—not to decide your entire future today.</div>
+</section>
+
+<section id="stations" aria-labelledby="stations-heading" style="margin-top:1.5rem">
+  <h2 id="stations-heading">Choose a station</h2>
+  <div class="station-grid"><article class="station-card">
+          <div class="station-card-head"><span class="station-icon" aria-hidden="true">🌟</span><h2>Station 1: Campus Involvement &amp; Leadership</h2></div>
+          <div class="card-body"><p>Meet people, try something new, and practice leading before you feel “ready.”</p>
+          <h3>CSUDH Ways to Get Started</h3><ul><li><a href="https://www.csudh.edu/student-life/student-organizations/" target="_blank" rel="noopener">Student Organizations</a></li><li><a href="https://www.csudh.edu/student-affairs/toro-link/" target="_blank" rel="noopener">Toro Link</a></li><li><a href="https://www.csudh.edu/student-life/leadership-development/" target="_blank" rel="noopener">LEAD Office &amp; Leadership Programs</a></li><li><a href="https://www.csudh.edu/student-life/leadership-development/emerging-leaders-program/" target="_blank" rel="noopener">Emerging Leaders Program</a></li></ul>
+          <a class="button-link open" href="campus-involvement-leadership.html">Open Station 1 →</a></div>
+        </article><article class="station-card">
+          <div class="station-card-head"><span class="station-icon" aria-hidden="true">💼</span><h2>Station 2: Jobs &amp; Internships</h2></div>
+          <div class="card-body"><p>Build experience, earn money, explore careers, and learn what kind of work fits you.</p>
+          <h3>CSUDH Ways to Get Started</h3><ul><li><a href="https://www.csudh.edu/career-center/handshake" target="_blank" rel="noopener">CSUDH Handshake</a></li><li><a href="https://www.csudh.edu/career-center/" target="_blank" rel="noopener">Career Center</a></li><li><a href="https://my.csudh.edu/" target="_blank" rel="noopener">Career Coaching through TSC</a></li><li><a href="https://www.csudh.edu/career-center/digital-career-toolkit" target="_blank" rel="noopener">Digital Career Toolkit</a></li></ul>
+          <a class="button-link open" href="jobs-internships.html">Open Station 2 →</a></div>
+        </article><article class="station-card">
+          <div class="station-card-head"><span class="station-icon" aria-hidden="true">🔬</span><h2>Station 3: Academic Opportunities &amp; Research</h2></div>
+          <div class="card-body"><p>Go beyond completing assignments: investigate questions, create knowledge, and work with faculty.</p>
+          <h3>CSUDH Ways to Get Started</h3><ul><li><a href="https://www.csudh.edu/gsr/undergraduate-research/" target="_blank" rel="noopener">Office of Undergraduate Research</a></li><li><a href="https://phone-directory.csudh.edu/" target="_blank" rel="noopener">Your Instructors</a></li><li><a href="https://www.csudh.edu/gsr/research/src/" target="_blank" rel="noopener">Student Research Conference</a></li><li><a href="https://www.csudh.edu/gsr/undergraduate-research/research-opportunities/" target="_blank" rel="noopener">Research Opportunities</a></li></ul>
+          <a class="button-link open" href="academic-opportunities-research.html">Open Station 3 →</a></div>
+        </article><article class="station-card">
+          <div class="station-card-head"><span class="station-icon" aria-hidden="true">🤝</span><h2>Station 4: Community Service &amp; Volunteering</h2></div>
+          <div class="card-body"><p>Contribute to something that matters while building experience and community connections.</p>
+          <h3>CSUDH Ways to Get Started</h3><ul><li><a href="https://www.csudh.edu/cetr/ccc/" target="_blank" rel="noopener">College Corps</a></li><li><a href="https://www.csudh.edu/student-affairs/toro-link/" target="_blank" rel="noopener">Toro Link</a></li><li><a href="https://www.csudh.edu/student-life/student-organizations/" target="_blank" rel="noopener">Student Organizations</a></li><li><a href="https://www.csudh.edu/academics/degree-programs/" target="_blank" rel="noopener">Service Connected to Your Major</a></li></ul>
+          <a class="button-link open" href="community-service-volunteering.html">Open Station 4 →</a></div>
+        </article><article class="station-card">
+          <div class="station-card-head"><span class="station-icon" aria-hidden="true">💬</span><h2>Station 5: Professional Relationships &amp; Mentoring</h2></div>
+          <div class="card-body"><p>Build a circle of people who can answer questions, share perspective, and help you see possibilities.</p>
+          <h3>CSUDH Ways to Get Started</h3><ul><li><a href="https://www.csudh.edu/alumni/get-involved/toro-connect/" target="_blank" rel="noopener">Toro Connect</a></li><li><a href="https://phone-directory.csudh.edu/" target="_blank" rel="noopener">Faculty Office Hours</a></li><li><a href="https://www.csudh.edu/career-center/" target="_blank" rel="noopener">Career Center</a></li><li><a href="https://www.csudh.edu/alumni/alumni-events/" target="_blank" rel="noopener">Campus &amp; Alumni Events</a></li></ul>
+          <a class="button-link open" href="professional-relationships-mentoring.html">Open Station 5 →</a></div>
+        </article></div>
+</section>
+
+<section id="resources" class="resource-directory" aria-labelledby="directory-heading">
+  <h2 id="directory-heading">All CSUDH Ways to Get Started</h2>
+  <p>Every resource from the five station pages is collected below.</p>
+  <div class="stack"><section class="panel directory-group" id="directory-1">
+          <h2>🌟 Station 1: Campus Involvement &amp; Leadership</h2><div class="directory-list"><a class="directory-link" href="https://www.csudh.edu/student-life/student-organizations/" target="_blank" rel="noopener"><div>Student Organizations<span>Explore more than 100 recognized clubs and organizations connected to majors, identities, interests, service, culture, and recreation.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/student-affairs/toro-link/" target="_blank" rel="noopener"><div>Toro Link<span>Use CSUDH’s centralized platform to find student organizations, events, and leadership opportunities.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/student-life/leadership-development/" target="_blank" rel="noopener"><div>LEAD Office &amp; Leadership Programs<span>Learn about leadership programs and get help finding ways to become involved. The LEAD Office is located in LSU 121.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/student-life/leadership-development/emerging-leaders-program/" target="_blank" rel="noopener"><div>Emerging Leaders Program<span>Explore a structured program designed to strengthen communication, problem-solving, decision-making, and community connections.</span></div><b aria-hidden="true">↗</b></a></div>
+        </section><section class="panel directory-group" id="directory-2">
+          <h2>💼 Station 2: Jobs &amp; Internships</h2><div class="directory-list"><a class="directory-link" href="https://www.csudh.edu/career-center/handshake" target="_blank" rel="noopener"><div>CSUDH Handshake<span>Search for internships, part-time and full-time jobs, on-campus student assistant positions, work-study opportunities, career events, and workshops.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/career-center/" target="_blank" rel="noopener"><div>Career Center<span>Get support with career exploration, resumes, interviews, internship searches, career fairs, graduate school, and professional development.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://my.csudh.edu/" target="_blank" rel="noopener"><div>Career Coaching through TSC<span>Schedule an appointment with a career coach through Toro Success Collaborative in your myCSUDH portal.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/career-center/digital-career-toolkit" target="_blank" rel="noopener"><div>Digital Career Toolkit<span>Use online tools for exploring majors and careers, preparing application materials, and building career-ready skills.</span></div><b aria-hidden="true">↗</b></a></div>
+        </section><section class="panel directory-group" id="directory-3">
+          <h2>🔬 Station 3: Academic Opportunities &amp; Research</h2><div class="directory-list"><a class="directory-link" href="https://www.csudh.edu/gsr/undergraduate-research/" target="_blank" rel="noopener"><div>Office of Undergraduate Research<span>Find workshops, advising, programs, events, funding information, and opportunities available during the academic year and summer.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://phone-directory.csudh.edu/" target="_blank" rel="noopener"><div>Your Instructors<span>Ask faculty in your field about projects, labs, creative work, programs, or next steps specific to your major. Use the directory when you need contact information.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/gsr/research/src/" target="_blank" rel="noopener"><div>Student Research Conference<span>See the research and creative work CSUDH students are doing—or work toward presenting your own project.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/gsr/undergraduate-research/research-opportunities/" target="_blank" rel="noopener"><div>Research Opportunities<span>Explore campus programs and external experiences that can help prepare you for careers or graduate school.</span></div><b aria-hidden="true">↗</b></a></div>
+        </section><section class="panel directory-group" id="directory-4">
+          <h2>🤝 Station 4: Community Service &amp; Volunteering</h2><div class="directory-list"><a class="directory-link" href="https://www.csudh.edu/cetr/ccc/" target="_blank" rel="noopener"><div>College Corps<span>A structured service program focused on early childhood education, K–12 education, food insecurity, and climate action. For 2026–27, eligible fellows may earn up to $10,000 after completing the program requirements.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/student-affairs/toro-link/" target="_blank" rel="noopener"><div>Toro Link<span>Look for service events and volunteer opportunities offered by student organizations and campus programs.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/student-life/student-organizations/" target="_blank" rel="noopener"><div>Student Organizations<span>Many clubs, fraternities, sororities, and major-based organizations include community-service projects.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/academics/degree-programs/" target="_blank" rel="noopener"><div>Service Connected to Your Major<span>Explore your department or degree program, then ask faculty about service-learning courses, field experiences, and community partners.</span></div><b aria-hidden="true">↗</b></a></div>
+        </section><section class="panel directory-group" id="directory-5">
+          <h2>💬 Station 5: Professional Relationships &amp; Mentoring</h2><div class="directory-list"><a class="directory-link" href="https://www.csudh.edu/alumni/get-involved/toro-connect/" target="_blank" rel="noopener"><div>Toro Connect<span>Use CSUDH’s online mentoring and networking platform to connect with Toro alumni by degree, industry, interests, and experiences.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://phone-directory.csudh.edu/" target="_blank" rel="noopener"><div>Faculty Office Hours<span>Ask instructors about their field, research, graduate school, career paths, or ways students can get involved. Use the directory when you need contact information.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/career-center/" target="_blank" rel="noopener"><div>Career Center<span>Career coaches can help you identify people to learn from and prepare for networking conversations.</span></div><b aria-hidden="true">↗</b></a><a class="directory-link" href="https://www.csudh.edu/alumni/alumni-events/" target="_blank" rel="noopener"><div>Campus &amp; Alumni Events<span>Panels, workshops, and industry events can provide low-pressure ways to meet professionals and hear how they got started.</span></div><b aria-hidden="true">↗</b></a></div>
+        </section></div>
+</section></main>
+<footer class="site-footer"><div class="footer-inner">
+  <p><strong>Toro Advance Opportunity Exploration</strong></p>
+  <p>CSUDH resource links checked July 21, 2026. External pages may change.</p>
+</div></footer>
+<script>
+(function () {
+  const pageKey = document.body.dataset.pageKey;
+  if (!pageKey) return;
+  const fields = Array.from(document.querySelectorAll('[data-save]'));
+  const status = document.getElementById('save-status');
+  const storageKey = 'toro-advance-' + pageKey;
+
+  function load() {
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (e) {}
+    fields.forEach((field) => {
+      const key = field.dataset.save;
+      if (!(key in saved)) return;
+      if (field.type === 'checkbox') field.checked = !!saved[key];
+      else field.value = saved[key];
+    });
+  }
+
+  function save() {
+    const data = {};
+    fields.forEach((field) => {
+      data[field.dataset.save] = field.type === 'checkbox' ? field.checked : field.value;
+    });
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(data));
+      if (status) {
+        status.textContent = 'Saved on this device.';
+        window.clearTimeout(window.__saveTimer);
+        window.__saveTimer = window.setTimeout(() => status.textContent = '', 1800);
+      }
+    } catch (e) {
+      if (status) status.textContent = 'Could not save in this browser.';
+    }
+  }
+
+  fields.forEach((field) => field.addEventListener('input', save));
+  const saveButton = document.getElementById('save-button');
+  if (saveButton) saveButton.addEventListener('click', save);
+  const clearButton = document.getElementById('clear-button');
+  if (clearButton) clearButton.addEventListener('click', () => {
+    if (!window.confirm('Clear all selections and notes on this page?')) return;
+    fields.forEach((field) => {
+      if (field.type === 'checkbox') field.checked = false;
+      else field.value = '';
+    });
+    localStorage.removeItem(storageKey);
+    if (status) status.textContent = 'Page cleared.';
+  });
+  const printButton = document.getElementById('print-button');
+  if (printButton) printButton.addEventListener('click', () => window.print());
+  const downloadButton = document.getElementById('download-button');
+  if (downloadButton) downloadButton.addEventListener('click', () => {
+    const lines = [];
+    const title = document.querySelector('h1')?.textContent || 'Opportunity Exploration';
+    lines.push(title, '='.repeat(title.length), '');
+    document.querySelectorAll('.option').forEach((label) => {
+      const cb = label.querySelector('input');
+      lines.push((cb.checked ? '[x] ' : '[ ] ') + label.textContent.trim());
+    });
+    lines.push('');
+    document.querySelectorAll('.note-block').forEach((block) => {
+      const label = block.querySelector('label')?.textContent.trim() || 'Note';
+      const value = block.querySelector('textarea')?.value.trim() || '';
+      lines.push(label, value || '(No response)', '');
+    });
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = pageKey + '-notes.txt';
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(a.href);
+    a.remove();
+  });
+  load();
+})();
+</script>
+</body>
+</html>
