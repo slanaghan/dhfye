@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Your Week</title>
+  <style>
+    :root {
+      --primary: #7a0019;
+      --primary-dark: #520011;
+      --accent: #f5b335;
+      --background: #f4f6f8;
+      --surface: #ffffff;
+      --text: #1f2933;
+      --muted: #5f6c76;
+      --border: #d9e0e6;
+      --shadow: 0 12px 30px rgba(31, 41, 51, 0.10);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(245, 179, 53, 0.18), transparent 28rem),
+        var(--background);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 3.75rem 1.25rem 4.75rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+    }
+
+    .page-header p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.12rem;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    main {
+      width: min(100% - 2rem, 980px);
+      margin: -2.5rem auto 3rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .intro {
+      border-top: 6px solid var(--accent);
+    }
+
+    .intro p {
+      font-size: 1.12rem;
+      margin: 0;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 1.25rem 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .checklist li {
+      position: relative;
+      background: #faf7f2;
+      border: 1px solid #f0dfbd;
+      border-radius: 12px;
+      padding: 0.9rem 1rem 0.9rem 2.7rem;
+      min-height: 3.25rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0.95rem;
+      top: 0.82rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .resources {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(250px, 0.6fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .video-wrapper {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #111;
+      box-shadow: 0 8px 24px rgba(31, 41, 51, 0.16);
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .resource-panel {
+      background: #f8f9fa;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem;
+    }
+
+    .resource-panel h3 {
+      margin-top: 0;
+      margin-bottom: 0.45rem;
+      color: var(--primary-dark);
+    }
+
+    .resource-panel p {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .tip {
+      margin-top: 1.25rem;
+      padding: 1rem 1.1rem;
+      border-left: 5px solid var(--accent);
+      background: #fff9e9;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .tip strong {
+      color: var(--primary-dark);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 1rem 2.5rem;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 720px) {
+      .page-header {
+        padding-top: 2.75rem;
+      }
+
+      .checklist,
+      .resources {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        width: min(100% - 1rem, 980px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="page-header">
+    <h1>Plan Your Week</h1>
+    <p>A simple weekly plan can help you balance classes, responsibilities, connections, and time for yourself.</p>
+  </header>
+
+  <main>
+    <section class="card intro" aria-labelledby="getting-started">
+      <h2 id="getting-started">You Do Not Have to Have It All Figured Out</h2>
+      <p>
+        You do not have to be perfect at managing your time before college starts.
+        Most students learn by doing. Start with a simple plan, try it for a week,
+        and adjust it as you learn what works best for you.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="weekly-plan">
+      <h2 id="weekly-plan">What to Include in Your Weekly Plan</h2>
+      <ul class="checklist">
+        <li>Class time</li>
+        <li>Work or family responsibilities</li>
+        <li>Study time</li>
+        <li>Commuting time</li>
+        <li>Meals</li>
+        <li>Time to check Canvas and email</li>
+        <li>Time to connect with people or get involved</li>
+        <li>Time to relax and have fun</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Remember:</strong> Your first plan does not need to be perfect.
+        A useful schedule is one that you can update as your needs change.
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="resources">
+      <h2 id="resources">Tools to Help You Get Started</h2>
+
+      <div class="resources">
+        <div>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/HxjnKL4Hhqo"
+              title="Time management tips for college students"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <aside class="resource-panel">
+          <h3>Weekly Study Schedule</h3>
+          <p>
+            Use this printable template to map out your classes, study time,
+            responsibilities, and personal time.
+          </p>
+          <a
+            class="button"
+            href="https://ace.fsu.edu/sites/g/files/upcbnu296/files/Weekly%20Study%20Schedule%20for%20Website.pdf"
+            target="_blank"
+            rel="noopener noreferrer">
+            Open the Weekly Schedule Template
+          </a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Start with a plan, pay attention to what works, and make changes as you go.
+  </footer>
+</body>
+</html>
