@@ -43,7 +43,6 @@ img { max-width: 100%; }
   gap: 1rem; padding: .65rem 1.25rem;
 }
 .brand { color: white; text-decoration: none; font-weight: 800; line-height: 1.05; }
-.brand small { display: block; color: #ffe493; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .2rem; }
 .brand span { font-size: 1.13rem; }
 .nav-toggle {
   display: none; border: 2px solid rgba(255,255,255,.65); background: transparent;
